@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR_Authoring.CSharp.Plugins", "VR_Authoring.CSharp.Plugins.csproj", "{4E45A4DE-09A2-E99B-1588-F460B57D09F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR_Authoring.CSharp", "VR_Authoring.CSharp.csproj", "{0E5B2953-DC59-3EFB-4686-695E4F8AAD15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VR_Authoring.CSharp.Editor", "VR_Authoring.CSharp.Editor.csproj", "{4D879168-EE25-64BF-91A9-B9B39E0CC796}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E45A4DE-09A2-E99B-1588-F460B57D09F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E45A4DE-09A2-E99B-1588-F460B57D09F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E45A4DE-09A2-E99B-1588-F460B57D09F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E45A4DE-09A2-E99B-1588-F460B57D09F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E5B2953-DC59-3EFB-4686-695E4F8AAD15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E5B2953-DC59-3EFB-4686-695E4F8AAD15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E5B2953-DC59-3EFB-4686-695E4F8AAD15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E5B2953-DC59-3EFB-4686-695E4F8AAD15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D879168-EE25-64BF-91A9-B9B39E0CC796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D879168-EE25-64BF-91A9-B9B39E0CC796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D879168-EE25-64BF-91A9-B9B39E0CC796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D879168-EE25-64BF-91A9-B9B39E0CC796}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

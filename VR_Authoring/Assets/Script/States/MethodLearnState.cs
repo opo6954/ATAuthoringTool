@@ -89,7 +89,7 @@ public class MethodLearnState : StateModuleTemplate {
 	{
 		//scale 조절
 		Vector3 myScale = cloneObj.transform.localScale;
-		myScale = myScale * 3.0f;
+		myScale = myScale * 1.5f;
 		cloneObj.transform.localScale = myScale;
 	}
 
@@ -257,10 +257,31 @@ public class MethodLearnState : StateModuleTemplate {
 	}
 
 
-
-
-	public override void Process ()
+    public override void Process ()
 	{
+        //For Debugging, rotate the cloning fire extinguisher
+        if (Input.GetKeyDown("q") == true)
+        {
+            Quaternion q = cloneObj.transform.localRotation;
+            Vector3 objEuler = q.eulerAngles;
+
+
+            objEuler.y = objEuler.y + 10.0f;
+
+            cloneObj.transform.localRotation = Quaternion.Euler(objEuler);
+            
+
+        }
+        else if (Input.GetKeyDown("e") == true)
+        {
+            Quaternion q = cloneObj.transform.localRotation;
+            Vector3 objEuler = q.eulerAngles;
+
+            objEuler.y = objEuler.y - 10.0f;
+
+            cloneObj.transform.localRotation = Quaternion.Euler(objEuler);
+        }
+
 		Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
 		Debug.DrawRay (ray.origin, ray.direction * 1000, Color.yellow);
 

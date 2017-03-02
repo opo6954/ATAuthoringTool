@@ -592,7 +592,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: unityExtensionTest
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: unityExtensionTest
   metroCommandLineArgsFile: 
   metroTileShowName: 0
   metroMediumTileShowName: 0

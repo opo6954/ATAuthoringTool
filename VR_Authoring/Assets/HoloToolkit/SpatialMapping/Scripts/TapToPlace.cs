@@ -202,5 +202,10 @@ namespace HoloToolkit.Unity.SpatialMapping
                 }
             }
         }
+
+        public float GetCameraDistance()
+        {
+            return Vector3.Distance(this.transform.position, Camera.main.transform.position);
+        }
     }
 }

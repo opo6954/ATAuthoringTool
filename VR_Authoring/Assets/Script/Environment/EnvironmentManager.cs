@@ -8,12 +8,15 @@ public class EnvironmentManager : MonoBehaviour {
     public GameObject spatialMapping;
     public GameObject canvas;
     public GameObject interactableObjects;
-    public bool isEditing=false;
+    public bool isEditing=true;
 
 	// Use this for initialization
 	void Start () {
         canvas.SetActive(false);
-        DisableEditing();
+        if (!isEditing)
+            DisableEditing();
+        else
+            EnableEditing();
     }
 	
 	// Update is called once per frame

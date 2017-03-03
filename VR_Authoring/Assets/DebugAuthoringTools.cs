@@ -42,19 +42,10 @@ public class DebugAuthoringTools : MonoBehaviour {
         {
             scenarioController.insertScenario(myScList[i]);
         }
-        
-
-        
-        
+               
         
         scenarioController.triggerScenario();
-
-
-
         
-
-
-
 
         /*
 

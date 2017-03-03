@@ -27,6 +27,9 @@ namespace HoloToolkit.Unity.SpatialMapping
         [Tooltip("Place parent on tap instead of current game object.")]
         public bool PlaceParentOnTap;
 
+        [Tooltip("Enable/disable game object placement")]
+        public bool IsEditing = false;
+
         [Tooltip("Specify the parent game object to be moved on tap, if the immediate parent is not desired.")]
         public GameObject ParentGameObjectToPlace;
 
@@ -113,6 +116,8 @@ namespace HoloToolkit.Unity.SpatialMapping
         {
             // If the user is in placing mode,
             // update the placement to match the user's gaze.
+            if (!IsEditing)
+                return;
             if (IsBeingPlaced)
             {
                 // Do a raycast into the world that will only hit the Spatial Mapping mesh.
@@ -156,6 +161,8 @@ namespace HoloToolkit.Unity.SpatialMapping
 
         public void ChangeState()
         {
+            if (!IsEditing)
+                return;
             // On each tap gesture, toggle whether the user is in placing mode.
             IsBeingPlaced = !IsBeingPlaced;
 

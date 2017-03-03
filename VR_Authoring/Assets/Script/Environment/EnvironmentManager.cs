@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour {
-    public ThalmicMyo myoRight;
+    public MyoInputManager myoInputManager;
     public GameObject spatialMapping;
     public GameObject canvas;
 
@@ -15,11 +15,15 @@ public class EnvironmentManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(myoRight.pose == Thalmic.Myo.Pose.FingersSpread)
+		if(myoInputManager.myoInput1.Pause() || myoInputManager.myoInput2.Pause())
         {
             ShowMenu(true);
         }
 
+        if(myoInputManager.myoInput1.Cancel() || myoInputManager.myoInput2.Cancel())
+        {
+            ShowMenu(false);
+        }
         /*
         if (myoRight.pose == Thalmic.Myo.Pose.Fist)
         {

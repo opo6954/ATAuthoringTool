@@ -504,9 +504,13 @@
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\UIEffect_AnswerSheet.cs" />
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\UIEffect_child.cs" />
     <Compile Include="Assets\Resources\UserInterface\UIModuleTemplate.cs" />
+    <Compile Include="Assets\Script\Environment\EnvironmentManager.cs" />
+    <Compile Include="Assets\Script\Environment\FloatingCanvas.cs" />
+    <Compile Include="Assets\Script\Environment\GazeChecker.cs" />
     <Compile Include="Assets\Script\Interface\GestureInput.cs" />
     <Compile Include="Assets\Script\Interface\MyoGesture.cs" />
     <Compile Include="Assets\Script\Interface\MyoInput.cs" />
+    <Compile Include="Assets\Script\Interface\MyoInputManager.cs" />
     <Compile Include="Assets\Script\Player\PlayerTemplate.cs" />
     <Compile Include="Assets\Script\Scenario\FireExtinguishScenario.cs" />
     <Compile Include="Assets\Script\Scenario\ScenarioModuleTemplate.cs" />

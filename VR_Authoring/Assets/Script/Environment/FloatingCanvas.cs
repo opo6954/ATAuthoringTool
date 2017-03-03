@@ -18,6 +18,7 @@ public class FloatingCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         if (!gazeChecker.gazing && !btn1Checker.gazing && !btn2Checker.gazing && !btn3Checker.gazing)
         {
             Debug.Log("!!!");
@@ -27,13 +28,14 @@ public class FloatingCanvas : MonoBehaviour {
         {
             Debug.Log("???");
         }
+        */
 	}
 
     public void RepositionCanvas()
     {
         this.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 10.0f;
         this.transform.forward = Camera.main.transform.forward;
-        gazeChecker.gazing = true;
+        //gazeChecker.gazing = true;
     }
 
 }

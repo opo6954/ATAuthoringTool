@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VR;
 
 public class PlayerTemplate : MonoBehaviour {
 
@@ -145,8 +146,8 @@ public class PlayerTemplate : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-		myWalkSpeed = transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed;
+        if(!VRSettings.enabled)
+		    myWalkSpeed = transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed;
 
         taskList = new Dictionary<string, TaskModuleTemplate>();
         canvas_ui = GameObject.Find("Canvas_UI");

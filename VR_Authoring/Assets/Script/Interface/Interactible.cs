@@ -9,12 +9,11 @@ public class Interactible : MonoBehaviour
     [Tooltip("Audio clip to play when interacting with this hologram.")]
     public AudioClip TargetFeedbackSound;
     private AudioSource audioSource;
-
-    private Material[] defaultMaterials;
+    public float highlightScale = 1.5f;
+    float originalScale = 1.0f;
 
     void Start()
     {
-        defaultMaterials = GetComponent<Renderer>().materials;
 
         // Add a BoxCollider if the interactible does not contain one.
         Collider collider = GetComponentInChildren<Collider>();
@@ -49,28 +48,17 @@ public class Interactible : MonoBehaviour
     void GazeEntered()
     {
         Debug.Log("Gaze Entered!");
-        for (int i = 0; i < defaultMaterials.Length; i++)
-        {
-            // 2.d: Uncomment the below line to highlight the material when gaze enters.
-            defaultMaterials[i].SetFloat("_Highlight", .25f);
-        }
+        this.GetComponent<Control_objectify>().isObjectify = true;
     }
 
     void GazeExited()
     {
-        for (int i = 0; i < defaultMaterials.Length; i++)
-        {
-            // 2.d: Uncomment the below line to remove highlight on material when gaze exits.
-            defaultMaterials[i].SetFloat("_Highlight", 0f);
-        }
+        this.GetComponent<Control_objectify>().isObjectify = false;
     }
 
     void OnSelect()
     {
-        for (int i = 0; i < defaultMaterials.Length; i++)
-        {
-            defaultMaterials[i].SetFloat("_Highlight", .5f);
-        }
+        
 
         // Play the audioSource feedback when we gaze and select a hologram.
         if (audioSource != null && !audioSource.isPlaying)

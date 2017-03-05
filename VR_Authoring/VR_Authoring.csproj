@@ -507,6 +507,8 @@
     <Compile Include="Assets\Script\Environment\EnvironmentManager.cs" />
     <Compile Include="Assets\Script\Environment\FloatingCanvas.cs" />
     <Compile Include="Assets\Script\Environment\GazeChecker.cs" />
+    <Compile Include="Assets\Script\Interface\Control_objectify.cs" />
+    <Compile Include="Assets\Script\Interface\Extinguisher.cs" />
     <Compile Include="Assets\Script\Interface\GestureInput.cs" />
     <Compile Include="Assets\Script\Interface\Interactible.cs" />
     <Compile Include="Assets\Script\Interface\InteractibleManager.cs" />

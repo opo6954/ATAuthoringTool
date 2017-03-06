@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DebugAuthoringTools.cs" />
+    <Compile Include="Assets\Delete.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\DeleteLine.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\IGeometry.cs" />
@@ -505,6 +506,7 @@
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\UIEffect_child.cs" />
     <Compile Include="Assets\Resources\UserInterface\UIModuleTemplate.cs" />
     <Compile Include="Assets\Script\Environment\EnvironmentManager.cs" />
+    <Compile Include="Assets\Script\Environment\FireEffect.cs" />
     <Compile Include="Assets\Script\Environment\FloatingCanvas.cs" />
     <Compile Include="Assets\Script\Environment\GazeChecker.cs" />
     <Compile Include="Assets\Script\Interface\Control_objectify.cs" />

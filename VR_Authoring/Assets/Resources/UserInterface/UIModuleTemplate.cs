@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VR;
 
 public class UIModuleTemplate : MonoBehaviour {
 
@@ -29,7 +30,10 @@ public class UIModuleTemplate : MonoBehaviour {
     {
         if (isInit == false)
         {
-            canvas_ui = GameObject.Find("Canvas_UI");
+            if (!VRSettings.enabled)
+                canvas_ui = GameObject.Find("Canvas_UI");
+            else
+                canvas_ui = GameObject.Find("EnvEditingCanvas");
             isInit = true;
         }
     }

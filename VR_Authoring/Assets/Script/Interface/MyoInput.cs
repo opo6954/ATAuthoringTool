@@ -5,11 +5,12 @@ using Thalmic.Myo;
 
 public class MyoInput: GestureInput {
     public MyoGesture myo;
+    public bool isReady = false;
 
-    public MyoInput() { }
-    public MyoInput(MyoGesture _myo) { myo = _myo; }
-    public override bool Next() { return myo.currentGesture == MyoGesture.Gesture.CLICK; }
-    public override bool Hold() { return myo.currentGesture == MyoGesture.Gesture.FIST_HOLD; }
-    public override bool Pause() { return myo.currentGesture == MyoGesture.Gesture.SPREAD_HOLD; }
-    public override bool Cancel() { return myo.currentGesture == MyoGesture.Gesture.DOUBLE_TAP; }
+    public MyoInput() { isReady = false; }
+    public MyoInput(MyoGesture _myo) { myo = _myo; isReady = true; }
+    public override bool Next() { if (isReady) return myo.currentGesture == MyoGesture.Gesture.CLICK; else return false; }
+    public override bool Hold() { if (isReady) return myo.currentGesture == MyoGesture.Gesture.FIST_HOLD; else return false; }
+    public override bool Pause() { if(isReady) return myo.currentGesture == MyoGesture.Gesture.SPREAD_HOLD; else return false; }
+    public override bool Cancel() { if (isReady) return myo.currentGesture == MyoGesture.Gesture.DOUBLE_TAP; else return false; }
 }

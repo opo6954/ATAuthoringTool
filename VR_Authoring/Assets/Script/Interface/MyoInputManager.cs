@@ -4,19 +4,33 @@ using UnityEngine;
 using Thalmic.Myo;
 
 public class MyoInputManager:MonoBehaviour{
-    public MyoInput myoInput1;
-    public MyoInput myoInput2;
+    public MyoInput myoInputLeft;
+    public MyoInput myoInputRight;
     public MyoGesture myoGes1;
     public MyoGesture myoGes2;
 
     public void Start()
     {
-        myoInput1 = new MyoInput(myoGes1);
-        myoInput2 = new MyoInput(myoGes2);
+        myoInputLeft = new MyoInput();
+        myoInputRight = new MyoInput();
     }
 
     public void Update()
     {
-        
+        if (!myoInputLeft.isReady)
+        {
+            if(myoGes1.isLeft)
+                myoInputLeft = new MyoInput(myoGes1);
+            if (myoGes2.isLeft)
+                myoInputLeft = new MyoInput(myoGes2);
+        }
+        if (!myoInputRight.isReady)
+        {
+            if (myoGes1.isRight)
+                myoInputRight = new MyoInput(myoGes1);
+            if (myoGes2.isRight)
+                myoInputRight = new MyoInput(myoGes2);
+        }
+            
     }
 }

@@ -23,12 +23,12 @@ public class EnvironmentManager : MonoBehaviour {
 	void Update () {
         if (isEditing)
         {
-            if (myoInputManager.myoInput1.Pause() || myoInputManager.myoInput2.Pause())
+            if (myoInputManager.myoInputLeft.Pause() || myoInputManager.myoInputRight.Pause())
             {
                 ShowMenu(true);
             }
 
-            if (myoInputManager.myoInput1.Cancel() || myoInputManager.myoInput2.Cancel())
+            if (myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())
             {
                 ShowMenu(false);
             }

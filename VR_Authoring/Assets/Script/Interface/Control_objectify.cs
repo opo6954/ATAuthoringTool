@@ -4,7 +4,6 @@ using System.Collections;
 public class Control_objectify : MonoBehaviour {
 
     public bool isObjectify = false;
-    private bool isOjbectifyDone = false;
     private Renderer r;
     private float baseWidth;
 	

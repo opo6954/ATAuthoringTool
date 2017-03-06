@@ -94,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DebugAuthoringTools.cs" />
-    <Compile Include="Assets\Delete.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\DeleteLine.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\IGeometry.cs" />
@@ -505,9 +504,9 @@
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\UIEffect_AnswerSheet.cs" />
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\UIEffect_child.cs" />
     <Compile Include="Assets\Resources\UserInterface\UIModuleTemplate.cs" />
+    <Compile Include="Assets\Script\Effect\FireEffect.cs" />
+    <Compile Include="Assets\Script\Effect\ParticleManager.cs" />
     <Compile Include="Assets\Script\Environment\EnvironmentManager.cs" />
-    <Compile Include="Assets\Script\Environment\FireEffect.cs" />
-    <Compile Include="Assets\Script\Environment\FloatingCanvas.cs" />
     <Compile Include="Assets\Script\Environment\GazeChecker.cs" />
     <Compile Include="Assets\Script\Interface\Control_objectify.cs" />
     <Compile Include="Assets\Script\Interface\Extinguisher.cs" />
@@ -532,6 +531,8 @@
     <Compile Include="Assets\Script\Task\FireNotice\FireNotice.cs" />
     <Compile Include="Assets\Script\Task\FireReport\FireReport.cs" />
     <Compile Include="Assets\Script\Task\TaskModuleTemplate.cs" />
+    <Compile Include="Assets\Script\UI\FloatingCanvas.cs" />
+    <Compile Include="Assets\Script\UI\TimedBillText.cs" />
     <Compile Include="Assets\Script\XmlReader\XmlManager.cs" />
     <Compile Include="Assets\TurnTheGameOn\Arrow WayPointer\Scripts\STK_Waypoint.cs" />
     <Compile Include="Assets\TurnTheGameOn\Arrow WayPointer\Scripts\STK_WaypointController.cs" />

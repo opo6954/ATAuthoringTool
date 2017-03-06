@@ -10,6 +10,8 @@ public class MyoGesture:MonoBehaviour{
     public Gesture currentGesture = Gesture.NONE;
     public int streamLength = 5;
     public int blockTerm = 10;
+    public bool isLeft = false;
+    public bool isRight = false;
 
     int blockCount = 0;
     bool isBlocked = false;
@@ -24,6 +26,17 @@ public class MyoGesture:MonoBehaviour{
 
     void UpdateStream()
     {
+        if (myo.arm == Arm.Left)
+        {
+            isLeft = true;
+            isRight = false;
+        }
+        if (myo.arm == Arm.Right)
+        {
+            isRight = true;
+            isLeft = false;
+        }
+
         if (isBlocked)
             return;
         stream.Add(myo.pose);

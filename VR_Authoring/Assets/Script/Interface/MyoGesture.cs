@@ -121,4 +121,9 @@ public class MyoGesture:MonoBehaviour{
         UpdateStream();
         JudgeGesture();
     }
+
+    public virtual string ToString()
+    {
+        return myo.gyroscope.ToString();
+    }
 }

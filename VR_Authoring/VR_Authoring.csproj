@@ -516,6 +516,9 @@
     <Compile Include="Assets\Script\Interface\MyoGesture.cs" />
     <Compile Include="Assets\Script\Interface\MyoInput.cs" />
     <Compile Include="Assets\Script\Interface\MyoInputManager.cs" />
+    <Compile Include="Assets\Script\Misc\ModeSelector.cs" />
+    <Compile Include="Assets\Script\Misc\TrainingManager.cs" />
+    <Compile Include="Assets\Script\Player\FPCUpdater.cs" />
     <Compile Include="Assets\Script\Player\PlayerTemplate.cs" />
     <Compile Include="Assets\Script\Scenario\FireExtinguishScenario.cs" />
     <Compile Include="Assets\Script\Scenario\ScenarioModuleTemplate.cs" />

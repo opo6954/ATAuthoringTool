@@ -5,15 +5,37 @@ using UnityEngine.UI;
 using HoloToolkit.Unity.InputModule;
 
 public class FloatingCanvas : MonoBehaviour {
-    
+    public GameObject objectSelectUI;
+    public GameObject modeSelectUI;
+    public bool activated = false;
+
     // Use this for initialization
     void Start () {
-        
+        Deactivate();
+    }
+
+    public void Deactivate()
+    {
+        objectSelectUI.SetActive(false);
+        modeSelectUI.SetActive(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
+
 	}
+
+    public void ActivateObjectSelect()
+    {
+        objectSelectUI.SetActive(true);
+        modeSelectUI.SetActive(false);
+    }
+
+    public void ActivateModeSelect()
+    {
+        objectSelectUI.SetActive(false);
+        modeSelectUI.SetActive(true);
+    }
 
     public void RepositionCanvas()
     {

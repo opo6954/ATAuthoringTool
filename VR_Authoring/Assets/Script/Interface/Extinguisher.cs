@@ -7,6 +7,7 @@ public class Extinguisher: MonoBehaviour {
     public MyoInputManager myoManager;
     public GameObject smokeEffect;
     public GameObject smokeSound;
+    public GameObject hoseModel;
     public bool isReady = false;
 
     MyoGesture gestureLeft;
@@ -21,6 +22,16 @@ public class Extinguisher: MonoBehaviour {
         step = 1.0f;
         StopShooting();
         Relax();
+    }
+
+    public void SetHoseActive()
+    {
+        hoseModel.SetActive(true);
+    }
+
+    public void SetHoseDeactive()
+    {
+        hoseModel.SetActive(false);
     }
 
     void GetReady()
@@ -68,36 +79,42 @@ public class Extinguisher: MonoBehaviour {
 
     private void Update()
     {
+        if (!hoseModel.active)
+            return;
         // for making the hose ready (left hand)
-        if (myoManager.myoInputLeft.isReady)
+        if (myoManager.myoInputLeft.isReady && myoManager.myoInputRight.isReady)
         {
-            if (myoManager.myoInputLeft.myo.myo.pose == Thalmic.Myo.Pose.Fist)
+            if (myoManager.myoInputLeft.isReady)
             {
-                GetReady();
+                if (myoManager.myoInputLeft.myo.myo.pose == Thalmic.Myo.Pose.Fist)
+                {
+                    GetReady();
+                }
+                else
+                {
+                    Relax();
+                }
             }
             else
             {
                 Relax();
             }
-        }
-        else
-        {
-            Relax();
-        }
 
-        // for shooting (right hand)
-        if (myoManager.myoInputRight.isReady && isReady)
-        {
-            if (myoManager.myoInputRight.myo.myo.pose == Thalmic.Myo.Pose.Fist)
+            // for shooting (right hand)
+            if (myoManager.myoInputRight.isReady && isReady)
             {
-                Shoot();
+                if (myoManager.myoInputRight.myo.myo.pose == Thalmic.Myo.Pose.Fist)
+                {
+                    Shoot();
+                }
+                else
+                {
+                    StopShooting();
+                }
             }
             else
-            {
                 StopShooting();
-            }
         }
-        else
-            StopShooting();
+            
     }
 }

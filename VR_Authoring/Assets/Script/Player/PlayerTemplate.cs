@@ -146,16 +146,7 @@ public class PlayerTemplate : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (!VRSettings.enabled)
-        {
-            myWalkSpeed = transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed;
-            canvas_ui = GameObject.Find("Canvas_UI");
-        }
-        else
-        {
-            canvas_ui = GameObject.Find("EnvEditingCanvas");
-        }
-		    
+        canvas_ui = GameObject.Find("Canvas_UI");
 
         taskList = new Dictionary<string, TaskModuleTemplate>();
         

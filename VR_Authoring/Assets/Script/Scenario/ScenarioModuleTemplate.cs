@@ -15,7 +15,7 @@ public class ScenarioModuleTemplate {
 	private int myScenarioIdx;
 	
 	//task seq가 저장된 task list
-	private List<TaskModuleTemplate> taskList = new List<TaskModuleTemplate>();
+	public List<TaskModuleTemplate> taskList = new List<TaskModuleTemplate>();
 
 	//sceanrio의 이름
 	private string myScenarioName="";
@@ -103,10 +103,8 @@ public class ScenarioModuleTemplate {
 
 	public void setMyParent(ScenarioController _myParent)
 	{
-        
 		myParent = _myParent;
         myPosition = _myParent.transform.GetChild(0).transform;
-
 	}
 
     public ScenarioController getMyParent()

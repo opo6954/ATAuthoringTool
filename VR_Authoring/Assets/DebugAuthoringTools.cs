@@ -5,29 +5,25 @@ using System.Collections.Generic;
 
 public class DebugAuthoringTools : MonoBehaviour {
 
-	// Use this for initialization
-
+    // Use this for initialization
     GameObject[] players;
     GameObject debugPlayer;
 
 	PlayerTemplate pt =  null;
 
-
-
-
-
-	void Start () {
-
+    public void Init()
+    {
         //기본 설정
         players = GameObject.FindGameObjectsWithTag("Player");
         debugPlayer = players[0];
-        pt =  debugPlayer.GetComponent<PlayerTemplate>();
+        pt = debugPlayer.GetComponent<PlayerTemplate>();
         DefaultUI df = debugPlayer.AddComponent<DefaultUI>();
 
         df.loadUIPrefab("BackgroundForm");//global UI라서 걍 넣음
         pt.setMyUI(df);//적용할 UI임...
 
-        ScenarioController scenarioController = debugPlayer.AddComponent<ScenarioController>();
+        //ScenarioController scenarioController = debugPlayer.AddComponent<ScenarioController>();
+        ScenarioController scenarioController = debugPlayer.GetComponent<ScenarioController>();
 
 
 
@@ -42,9 +38,16 @@ public class DebugAuthoringTools : MonoBehaviour {
         {
             scenarioController.insertScenario(myScList[i]);
         }
-               
-        
+
+        Debug.Log("DebugAuthoringTools : " + myScList.Count);
+
+
         scenarioController.triggerScenario();
+    }
+        
+	void Start () {
+
+        
         
 
         /*

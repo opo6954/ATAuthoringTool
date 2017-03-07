@@ -60,7 +60,7 @@ public class TimedBillText : MonoBehaviour
         GetComponent<MeshRenderer>().material.color = new Color(GetComponent<MeshRenderer>().material.color.r, GetComponent<MeshRenderer>().material.color.g, GetComponent<MeshRenderer>().material.color.b, textAlpha);
     }
 
-    private void ShowText()
+    private void HoldText()
     {
         if (contentCount > 0)
             contentCount--;
@@ -76,9 +76,24 @@ public class TimedBillText : MonoBehaviour
         if (currentState == BlendingState.READY || currentState == BlendingState.FADEIN)
             FadeIn();
         else if (currentState == BlendingState.SHOW)
-            ShowText();
+            HoldText();
         else if (currentState == BlendingState.FADEOUT)
             FadeOut();
+    }
+
+    public void ShowText(string text)
+    {
+        // we'll show only new text
+        if (text.Equals(GetComponent<TextMesh>().text))
+            return;
+
+        UpdateText(text);
+        ShowText();
+    }
+
+    public void ShowText()
+    {
+        currentState = BlendingState.READY;
     }
 
     /// <summary>

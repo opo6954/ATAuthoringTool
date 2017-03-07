@@ -8,11 +8,11 @@ public class EnvironmentManager : MonoBehaviour {
     public GameObject spatialMapping;
     public GameObject canvas;
     public GameObject interactableObjects;
-    public bool isEditing=true;
+    public bool isEditing;
 
 	// Use this for initialization
 	void Start () {
-        canvas.SetActive(false);
+        canvas.GetComponent<FloatingCanvas>().Deactivate();
         if (!isEditing)
             DisableEditing();
         else
@@ -30,8 +30,13 @@ public class EnvironmentManager : MonoBehaviour {
 
             if (myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())
             {
-                ShowMenu(false);
+                this.transform.parent.GetComponent<ModeSelector>().SetMode(ModeSelector.Mode.NONE);
+                this.transform.parent.GetComponent<ModeSelector>().ShowMenu(true);
             }
+        }
+        else
+        {
+            canvas.GetComponent<FloatingCanvas>().Deactivate();
         }
     }
 
@@ -58,13 +63,13 @@ public class EnvironmentManager : MonoBehaviour {
         if (turnOn)
         {
             spatialMapping.SetActive(false);
-            canvas.SetActive(true);
-            canvas.GetComponent<FloatingCanvas>().RepositionCanvas();
+            canvas.GetComponent<FloatingCanvas>().ActivateObjectSelect();
+            canvas.GetComponent<FloatingCanvas>().RepositionCanvas();            
         }
         else
         {
             spatialMapping.SetActive(true);
-            canvas.SetActive(false);
+            canvas.GetComponent<FloatingCanvas>().Deactivate();
         }
     }
 }

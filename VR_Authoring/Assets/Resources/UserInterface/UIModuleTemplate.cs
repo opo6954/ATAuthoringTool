@@ -30,10 +30,7 @@ public class UIModuleTemplate : MonoBehaviour {
     {
         if (isInit == false)
         {
-            if (!VRSettings.enabled)
-                canvas_ui = GameObject.Find("Canvas_UI");
-            else
-                canvas_ui = GameObject.Find("EnvEditingCanvas");
+            canvas_ui = GameObject.Find("Canvas_UI");
             isInit = true;
         }
     }
@@ -50,7 +47,7 @@ public class UIModuleTemplate : MonoBehaviour {
         if (System.IO.Directory.Exists("Assets/Resources/" + UImoduledirectory) == true)
         {
             GameObject newUI = GameObject.Instantiate(Resources.Load(UImoduledirectory + "/Prefab/" + formName, typeof(GameObject))) as GameObject;
-
+            
             newUI.transform.SetParent(canvas_ui.transform, false);
 
             uiFormList.Add(formName, newUI);

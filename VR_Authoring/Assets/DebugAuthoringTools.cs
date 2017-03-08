@@ -17,16 +17,14 @@ public class DebugAuthoringTools : MonoBehaviour {
         players = GameObject.FindGameObjectsWithTag("Player");
         debugPlayer = players[0];
         pt = debugPlayer.GetComponent<PlayerTemplate>();
-        DefaultUI df = debugPlayer.AddComponent<DefaultUI>();
+        //DefaultUI df = debugPlayer.AddComponent<DefaultUI>();
 
-        df.loadUIPrefab("BackgroundForm");//global UI라서 걍 넣음
-        pt.setMyUI(df);//적용할 UI임...
+        //df.loadUIPrefab("BackgroundForm");//global UI라서 걍 넣음
+        //pt.setMyUI(df);//적용할 UI임...
 
         //ScenarioController scenarioController = debugPlayer.AddComponent<ScenarioController>();
         ScenarioController scenarioController = debugPlayer.GetComponent<ScenarioController>();
-
-
-
+        
         XmlManager xml = new XmlManager();
 
         xml.setMyPlayer(pt);
@@ -38,9 +36,6 @@ public class DebugAuthoringTools : MonoBehaviour {
         {
             scenarioController.insertScenario(myScList[i]);
         }
-
-        Debug.Log("DebugAuthoringTools : " + myScList.Count);
-
 
         scenarioController.triggerScenario();
     }

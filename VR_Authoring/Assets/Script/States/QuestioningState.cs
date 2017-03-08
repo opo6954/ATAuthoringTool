@@ -37,7 +37,7 @@ public class QuestioningState : StateModuleTemplate {
 	string moveButton="";
 
 
-	public QuestioningState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public QuestioningState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 
 	}
@@ -67,12 +67,10 @@ public class QuestioningState : StateModuleTemplate {
 	public override void Init ()
 	{
 		myStateName = "문제 풀기 State";
-		backgroundUI = myModuleInfo.getBackgroundUI ();//추가적인 버튼 및 맞는지 틀렸는지 알려주기 위해 backgroundUI 필요함
+		//backgroundUI = myModuleInfo.getBackgroundUI ();//추가적인 버튼 및 맞는지 틀렸는지 알려주기 위해 backgroundUI 필요함
 
 		base.Init ();
-
-		lockFPSScreen (true);
-
+        
 		setQuestions ();
 		setAnswerSheet ();
 
@@ -100,22 +98,19 @@ public class QuestioningState : StateModuleTemplate {
 	public override void Res ()
 	{
 		base.Res ();
-		lockFPSScreen (false);
 	}
 
 	//문제 설정함수
 	public void setQuestions()
 	{
 		string[] queArray = getProperty<string[]> ("Report_Question");
-
-		myUIInfo.GetComponent<ReportForm> ().setQuestionTxt (queArray[currQuesIdx]);
+        
 	}
 	//답안지 설정 함수
 	public void setAnswerSheet()
 	{
 		
 		string[][] ansArray = getProperty<string[][]> ("Report_Answer");
-		myUIInfo.GetComponent<ReportForm> ().setAnsTxt (ansArray[currQuesIdx]);
 
 		currAnsNum = ansArray [currQuesIdx].Length;
 
@@ -125,9 +120,7 @@ public class QuestioningState : StateModuleTemplate {
 	public void getKeyInput()
 	{
 		//x버튼: 답 결정
-
-		myUIInfo.GetComponent<ReportForm> ().setSelectedTxt (currAnsIdx);
-
+        
 		if (isKeyDown (selectButton) == true) {
 			int[] trueAns = getProperty<int[]> ("Report_TrueAns");
 
@@ -135,7 +128,6 @@ public class QuestioningState : StateModuleTemplate {
 				correctNum = correctNum + 1;
 				currQuesIdx = currQuesIdx + 1;
 				currAnsIdx = 0;
-				myUIInfo.GetComponent<ReportForm> ().setSelectedTxt (currAnsIdx);
 
 				if (currQuesIdx < trueAns.Length) {
 

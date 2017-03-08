@@ -4,17 +4,20 @@
 /// The Interactible class flags a Game Object as being "Interactible".
 /// Determines what happens when an Interactible is being gazed at.
 /// </summary>
-public class Interactible : MonoBehaviour
+public class GazeLogger : MonoBehaviour
 {
     [Tooltip("Audio clip to play when interacting with this hologram.")]
     public AudioClip TargetFeedbackSound;
+
+    public bool isGazed;
+
     private AudioSource audioSource;
     public float highlightScale = 1.5f;
     float originalScale = 1.0f;
 
     void Start()
     {
-
+        isGazed = false;
         // Add a BoxCollider if the interactible does not contain one.
         Collider collider = GetComponentInChildren<Collider>();
         if (collider == null)
@@ -47,13 +50,13 @@ public class Interactible : MonoBehaviour
 
     void GazeEntered()
     {
-        Debug.Log("Gaze Entered!");
-        this.GetComponent<Control_objectify>().isObjectify = true;
+        Debug.Log("Gaze Entered! : " + this.transform.name);
+        isGazed = true;
     }
 
     void GazeExited()
     {
-        this.GetComponent<Control_objectify>().isObjectify = false;
+        isGazed = false;
     }
 
     void OnSelect()

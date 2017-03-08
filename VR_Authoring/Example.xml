@@ -3,7 +3,7 @@
   <Scenario name="Fire" difficulty="2" Time="450" type="FireExtinguishScenario">
     <Task name="FireNotice" type="FireNotice">
       <State name="ApproachObjState">
-        <Properties Patrol_Contents="선박 내부를 순찰하세요" Approach_Distance="2.0" Approach_Angle="3.0" />
+        <Properties Patrol_Contents="선박 내부를 순찰하세요" Approach_Distance="0.5" Approach_Angle="0.1" />
         <Objects Approach_to_Object="Fire" />
       </State>
       <State name="ButtonPressState">
@@ -37,7 +37,7 @@
     </Task>
     <Task name="FireMethod" type="FireMethod">
       <State name="ApproachObjState">
-        <Properties Patrol_Contents="초기 진화를 위한 소화기를 찾으세요" Approach_Distance="3.0" Approach_Angle="3.0" />
+        <Properties Patrol_Contents="초기 진화를 위한 소화기를 찾으세요" Approach_Distance="0.5" Approach_Angle="3.0" />
         <Objects Approach_to_Object="FireExtinguisher" />
       </State>
       <State name="ButtonPressState">

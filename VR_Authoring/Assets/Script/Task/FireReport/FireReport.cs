@@ -54,16 +54,16 @@ public class FireReport : TaskModuleTemplate
     {
         base.TaskStart();
 
-		myUIInfo.loadUIPrefab ("DefaultForm");
-		myUIInfo.loadUIPrefab ("ReportForm");
+		//myUIInfo.loadUIPrefab ("DefaultForm");
+		//myUIInfo.loadUIPrefab ("ReportForm");
 
-		defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
-		questionForm = myUIInfo.getUIPrefab ("ReportForm");
+		//defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
+		//questionForm = myUIInfo.getUIPrefab ("ReportForm");
 		 
-		ApproachObjState a = new ApproachObjState (this, defaultForm);
+		ApproachObjState a = new ApproachObjState (this);
 		a.setProperty (getProperties ());
 		a.setObject (getObjects ());
-		QuestioningState b = new QuestioningState (this, questionForm);
+		QuestioningState b = new QuestioningState (this);
 		b.setProperty (getProperties ());
 		b.setObject (getObjects ());
 

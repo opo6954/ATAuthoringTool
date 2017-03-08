@@ -24,9 +24,6 @@ public class StateModuleTemplate {
     private bool isStateDoing = false;
     public bool isStateEnd = false;
 
-    
-
-    protected GameObject myUIInfo;//선택된 UI 종류
     protected TaskModuleTemplate myModuleInfo;//나의 윗단인 moduleINfo임
     protected string myStateName;
     
@@ -96,23 +93,7 @@ public class StateModuleTemplate {
             return true;
         return false;
     }
-
-
-    ///////////State에서의 Ui 관리
-
-	public void setUI(GameObject _UIModule)
-    {
-        myUIInfo = _UIModule;
-    }
-	public void turnOnMyUI()
-	{
-		myUIInfo.gameObject.SetActive (true);
-	}
-	public void turnOffMyUI()
-	{
-		myUIInfo.gameObject.SetActive (false);
-	}
-
+        
     public void setMyPlayer(PlayerTemplate player)
     {
         myPlayerInfo = player;
@@ -133,12 +114,18 @@ public class StateModuleTemplate {
 
     ///////////////Utility 함수들
     //특정 object에 가까이 가면 true 리턴, 아닐 시 false 리턴
-    public bool amISeeObject(GameObject target, float shout_angle = 3.0f, float shout_range = 5.0f)
+    public bool amISeeObject(GameObject target, float shout_angle = 0.5f, float shout_range = 5.0f)
     {
+        if ((target.transform.GetChild(0).GetComponent("GazeLogger") as GazeLogger) != null)
+        {
+            if (target.transform.GetChild(0).GetComponent<GazeLogger>().isGazed)
+                return true;
+        }
+
         float distance = (target.transform.position - myPosition.position).magnitude;
         float angle = Vector3.Dot((target.transform.position - myPosition.position).normalized, Camera.main.transform.forward.normalized);
 		if (shout_range <= 0) {
-			shout_range = 5.0f;
+			shout_range = 0.5f;
 		}
 		if (shout_angle <= 0) {
 			shout_angle = 3.0f;
@@ -152,30 +139,6 @@ public class StateModuleTemplate {
         }
         return false;
     }
-
-    //1인칭 화면 잠구기, 움직임 X, 시야 변경 X
-    public void lockFPSScreen(bool enableLock)
-    {
-        if (enableLock == true)
-        {
-            setActiveGameComponent( myPlayerInfo.transform.GetChild(0).name, "FirstPersonController", false);
-        }
-        else
-        {
-            setActiveGameComponent(myPlayerInfo.transform.GetChild(0).name, "FirstPersonController", true);
-        }
-    }
-	//1인칭 움직임 잠구기, 움직임 X, 시야 변경 O
-	public void lockFPSmoveScreen(bool enableLock)
-	{
-		if (enableLock == true) {
-
-			myPlayerInfo.transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed = 0.0f;
-
-		} else {
-			myPlayerInfo.transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed = myPlayerInfo.myWalkSpeed;
-		}
-	}
 
     //주어진 gameObject의 component를 끄고 켜기
     public static void setActiveGameComponent(string gameObjectName, string gameComponentName, bool value)
@@ -222,12 +185,11 @@ public class StateModuleTemplate {
 	/// 
 	//생성자
 
-	public StateModuleTemplate(TaskModuleTemplate _myModule, GameObject _UI)
+	public StateModuleTemplate(TaskModuleTemplate _myModule)
 	{
 		setMyModule(_myModule);
 		setMyPosition(myModuleInfo.getMyPosition());
 		setMyPlayer(myModuleInfo.getMyPlayer());
-		setUI(_UI);
 	}
 
 
@@ -276,7 +238,7 @@ public class StateModuleTemplate {
     public virtual void Init()
     {
         Debug.Log(myStateName +  " state 시작");
-		turnOnMyUI ();
+		//turnOnMyUI ();
     }
     //Goal이 false일때 계속 수행하는 작업
     public virtual void Process()
@@ -292,7 +254,7 @@ public class StateModuleTemplate {
     public virtual void Res()
     {
         Debug.Log(myStateName + " state 종료");
-		turnOffMyUI ();
+		//turnOffMyUI ();
     }
 
 }

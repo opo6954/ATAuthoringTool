@@ -12,12 +12,12 @@ using System.Collections;
  * */
 public class ButtonPressState : StateModuleTemplate {
 
-    GameObject backgroundUI;
+    //GameObject backgroundUI;
 
 	string button = "";
 
 
-	public ButtonPressState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public ButtonPressState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 		
 	}
@@ -52,21 +52,21 @@ public class ButtonPressState : StateModuleTemplate {
         }
         else
         {
-            myUIInfo.GetComponent<DefaultForm>().changeCurrTaskInfo(getProperty<string>("Notice_Contents"));
-            myUIInfo.GetComponent<DefaultForm>().toggleShownCurrTaskInfo(true);
+            //myUIInfo.GetComponent<DefaultForm>().changeCurrTaskInfo(getProperty<string>("Notice_Contents"));
+            //myUIInfo.GetComponent<DefaultForm>().toggleShownCurrTaskInfo(true);
 
 
 
-            backgroundUI = myModuleInfo.getBackgroundUI();
+            //backgroundUI = myModuleInfo.getBackgroundUI();
 
-            backgroundUI.GetComponent<BackgroundForm>().changeButtonInfo(getProperty<string>("Guide_Contents"));
+            //backgroundUI.GetComponent<BackgroundForm>().changeButtonInfo(getProperty<string>("Guide_Contents"));
             
             
 
 
             //lock the screen
 
-            lockFPSScreen(true);
+            //lockFPSScreen(true);
 
 
         }
@@ -75,7 +75,7 @@ public class ButtonPressState : StateModuleTemplate {
     public override void Process()
     {
         base.Process();
-        backgroundUI.GetComponent<BackgroundForm>().toggleShownObject(BackgroundForm.BGPart.BG_BUTTONINFO, true);
+        //backgroundUI.GetComponent<BackgroundForm>().toggleShownObject(BackgroundForm.BGPart.BG_BUTTONINFO, true);
     }
 
     public override bool Goal()
@@ -91,9 +91,9 @@ public class ButtonPressState : StateModuleTemplate {
     public override void Res()
     {
         base.Res();
-        lockFPSScreen(false);//unlock the screen
-        backgroundUI.GetComponent<BackgroundForm>().toggleShownObject(BackgroundForm.BGPart.BG_BUTTONINFO, false);
-        myUIInfo.GetComponent<DefaultForm>().toggleShownCurrTaskInfo(false);
+        //lockFPSScreen(false);//unlock the screen
+        //backgroundUI.GetComponent<BackgroundForm>().toggleShownObject(BackgroundForm.BGPart.BG_BUTTONINFO, false);
+        //myUIInfo.GetComponent<DefaultForm>().toggleShownCurrTaskInfo(false);
         
     }
 

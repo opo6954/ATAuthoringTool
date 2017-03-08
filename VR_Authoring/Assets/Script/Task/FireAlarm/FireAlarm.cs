@@ -39,22 +39,22 @@ public class FireAlarm : TaskModuleTemplate
 
 
 
-		myUIInfo.loadUIPrefab ("DefaultForm");
+		//myUIInfo.loadUIPrefab ("DefaultForm");
 
-		defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
+		//defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
 
 
 
-		ApproachObjState a = new ApproachObjState (this, defaultForm);
+		ApproachObjState a = new ApproachObjState (this);
 
 		a.setProperty (getProperties ());
 		a.setObject (getObjects ());
 
-		ButtonPressState b = new ButtonPressState (this, defaultForm);
+		ButtonPressState b = new ButtonPressState (this);
 		b.setProperty (getProperties ());
 		b.setObject (getObjects ());
 
-		PlaySoundsState c = new PlaySoundsState (this, defaultForm);
+		PlaySoundsState c = new PlaySoundsState (this);
 		c.setProperty (getProperties ());
 		c.setObject (getObjects ());
 

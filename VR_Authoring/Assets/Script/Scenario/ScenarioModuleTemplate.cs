@@ -104,8 +104,9 @@ public class ScenarioModuleTemplate {
 	public void setMyParent(ScenarioController _myParent)
 	{
 		myParent = _myParent;
-        myPosition = _myParent.transform.GetChild(0).transform;
-	}
+        //myPosition = _myParent.transform.GetChild(0).transform;
+        myPosition = _myParent.transform.parent;
+    }
 
     public ScenarioController getMyParent()
     {

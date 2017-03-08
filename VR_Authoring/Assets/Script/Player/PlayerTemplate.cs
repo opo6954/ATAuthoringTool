@@ -136,21 +136,14 @@ public class PlayerTemplate : MonoBehaviour {
     {
         myUIInfo = uiModule;
     }
-
-	//util function
-
-	public Camera getCamera()
-	{
-		return transform.GetChild (0).GetChild (0).GetComponent<Camera> ();
-	}
+    
 
 	// Use this for initialization
 	void Start () {
         canvas_ui = GameObject.Find("Canvas_UI");
 
         taskList = new Dictionary<string, TaskModuleTemplate>();
-        
-        
+                
 	}
 
 	// Update is called once per frame

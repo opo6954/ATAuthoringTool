@@ -48,7 +48,7 @@ public class UIModuleTemplate : MonoBehaviour {
         {
             GameObject newUI = GameObject.Instantiate(Resources.Load(UImoduledirectory + "/Prefab/" + formName, typeof(GameObject))) as GameObject;
             
-            newUI.transform.SetParent(canvas_ui.transform, false);
+            //newUI.transform.SetParent(canvas_ui.transform, false);
 
             uiFormList.Add(formName, newUI);
         }

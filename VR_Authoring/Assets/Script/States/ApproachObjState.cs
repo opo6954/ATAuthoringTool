@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 public class ApproachObjState : StateModuleTemplate {
 
-	public ApproachObjState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public ApproachObjState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 		
 	} 
@@ -50,7 +50,7 @@ public class ApproachObjState : StateModuleTemplate {
         }
         else
         {
-            myUIInfo.GetComponent<DefaultForm>().changeCurrTaskInfo(getProperty<string>("Patrol_Contents"));
+            //myUIInfo.GetComponent<DefaultForm>().changeCurrTaskInfo(getProperty<string>("Patrol_Contents"));
             
         }
 

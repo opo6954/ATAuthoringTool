@@ -19,7 +19,7 @@ public class MethodLearnState : StateModuleTemplate {
 
 	Transform[] objParts;
 
-	GameObject backgroundUI;//background UI instance
+	//GameObject backgroundUI;//background UI instance
 	GameObject cloneObj;//clone obj
 
 	Material[] partObjectify;
@@ -42,7 +42,7 @@ public class MethodLearnState : StateModuleTemplate {
 
 
 
-	public MethodLearnState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public MethodLearnState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 
 	}
@@ -96,6 +96,7 @@ public class MethodLearnState : StateModuleTemplate {
 	public void setInitPosObj(GameObject cloneObj)
 	{
 		//위치 조절
+        /*
 		Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2,0));
 		//Debug.DrawRay (ray.origin, ray.direction * 1000, Color.yellow);
 
@@ -105,6 +106,7 @@ public class MethodLearnState : StateModuleTemplate {
 		objPosition.y = objPosition.y - cloneObj.GetComponent<MeshFilter> ().mesh.bounds.max.z / 100.0f;
 
 		cloneObj.transform.localPosition = objPosition;
+        */
 	}
 
 	public void setInitRotObj(GameObject cloneObj)
@@ -128,13 +130,8 @@ public class MethodLearnState : StateModuleTemplate {
 		base.Init ();
 
 
-		backgroundUI = myModuleInfo.getBackgroundUI ();//backgroundUI 가져오기
-
-
-		lockFPSmoveScreen (true);
-
-
-
+		//backgroundUI = myModuleInfo.getBackgroundUI ();//backgroundUI 가져오기
+        
 		cloneObj = GameObject.Instantiate (getObject<GameObject> ("Interaction_to_Object"));
 
 		getObject<GameObject> ("Interaction_to_Object").SetActive (false);//원래의 obj는 false로 숨기자
@@ -175,7 +172,7 @@ public class MethodLearnState : StateModuleTemplate {
 
 
         
-        myUIInfo.GetComponent<MethodForm> ().setVideoName (videoNameStr);
+        //myUIInfo.GetComponent<MethodForm> ().setVideoName (videoNameStr);
 
 	}
 
@@ -183,13 +180,14 @@ public class MethodLearnState : StateModuleTemplate {
 	/////////////////////////////////////////PROCESS
 	public void playVideo()
 	{
-		myUIInfo.GetComponent<MethodForm> ().toggleShownVideoInfo (true);
-		myUIInfo.GetComponent<MethodForm> ().playVideo (selectIdx);
+		//myUIInfo.GetComponent<MethodForm> ().toggleShownVideoInfo (true);
+		//myUIInfo.GetComponent<MethodForm> ().playVideo (selectIdx);
 		isPlayingVideo = true;
 	}
 
 	public void hitTest()
 	{
+        /*
 		Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
 		RaycastHit hitObj;
 
@@ -209,30 +207,9 @@ public class MethodLearnState : StateModuleTemplate {
 				}
 			}			
 		}
+        */
 	}
-
-	public void videoOptionTest()
-	{
-		isPlayingVideo = myUIInfo.GetComponent<MethodForm> ().isPlayMode;
-		if(isPlayingVideo == true)
-		{
-			if(isKeyDown(selectButton))
-			{
-				myUIInfo.GetComponent<MethodForm>().stopVideo();
-			}
-			else if(isKeyDown(skipButton))
-			{
-				
-				myUIInfo.GetComponent<MethodForm> ().skipVideo ();
-
-
-
-
-			}
-		}
-
-	}
-
+    
 	public void selectTest()
 	{
 		if(isKeyDown(selectButton) && isPlayingVideo == false)
@@ -245,13 +222,10 @@ public class MethodLearnState : StateModuleTemplate {
 
 				playVideo ();
 
-				backgroundUI.GetComponent<BackgroundForm> ().changeButtonInfo ("맞았습니다");
-				backgroundUI.GetComponent<BackgroundForm> ().toggleShownObject (BackgroundForm.BGPart.BG_BUTTONINFO, true);
-
+				
 
 			} else {//오답일시 오답 표시하기 background에 ??
-				backgroundUI.GetComponent<BackgroundForm>().changeButtonInfo("틀렸습니다");
-				backgroundUI.GetComponent<BackgroundForm> ().toggleShownObject (BackgroundForm.BGPart.BG_BUTTONINFO, true);
+				
 			}
 		}
 	}
@@ -274,19 +248,21 @@ public class MethodLearnState : StateModuleTemplate {
         }
         else if (Input.GetKeyDown("e") == true)
         {
+            /*
             Quaternion q = cloneObj.transform.localRotation;
             Vector3 objEuler = q.eulerAngles;
 
             objEuler.y = objEuler.y - 10.0f;
 
             cloneObj.transform.localRotation = Quaternion.Euler(objEuler);
+            */
         }
 
-		Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
-		Debug.DrawRay (ray.origin, ray.direction * 1000, Color.yellow);
+		//Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
+		//Debug.DrawRay (ray.origin, ray.direction * 1000, Color.yellow);
 
 
-		videoOptionTest ();
+		//videoOptionTest ();
 
 		hitTest ();
 		selectTest ();
@@ -309,10 +285,7 @@ public class MethodLearnState : StateModuleTemplate {
 	{
 		cloneObj.SetActive (false);
 		getObject<GameObject> ("Interaction_to_Object").SetActive (true);
-
-		lockFPSmoveScreen (false);
-
-
+        
 		base.Res ();
 	}
 	

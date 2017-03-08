@@ -161,6 +161,7 @@ namespace HoloToolkit.Unity.SpatialMapping
 
         public void ChangeState()
         {
+            Debug.Log("ChangeState");
             if (!IsEditing)
                 return;
             // On each tap gesture, toggle whether the user is in placing mode.

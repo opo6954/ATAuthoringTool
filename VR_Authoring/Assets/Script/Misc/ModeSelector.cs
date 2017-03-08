@@ -5,7 +5,7 @@ using HoloToolkit.Unity.SpatialMapping;
 
 public class ModeSelector : MonoBehaviour {
     public enum Mode { NONE = 0, EDITING = 1, TRAINING = 2, TRAINING_TASK = 3}
-
+    public TimedBillText floatingText;
     public MyoInputManager myoInputManager;
     public GameObject canvas;
     public GameObject spatialMapping;
@@ -34,7 +34,9 @@ public class ModeSelector : MonoBehaviour {
 
     void GetGesture()
     {
-        if (currentMode == Mode.NONE && myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())
+        if (currentMode != Mode.NONE)
+            return;
+        if (myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())
         {
             ShowMenu(false);
             pauseCountLeft = 0;
@@ -49,7 +51,7 @@ public class ModeSelector : MonoBehaviour {
             pauseCountRight = pauseCountOffset;
 
         // show the menu for the gesture with two hands
-        if (currentMode == Mode.NONE && myoInputManager.myoInputLeft.Pause() || myoInputManager.myoInputRight.Pause())
+        if (myoInputManager.myoInputLeft.Pause() || myoInputManager.myoInputRight.Pause())
         {
             ShowMenu(true);
         }
@@ -74,6 +76,7 @@ public class ModeSelector : MonoBehaviour {
     {
         if (currentMode == Mode.EDITING)
         {
+            floatingText.ShowText("Editing mode");
             envManager.EnableEditing();
             trainManager.StopTraining();
             //canvas.GetComponent<FloatingCanvas>().Deactivate();
@@ -81,6 +84,7 @@ public class ModeSelector : MonoBehaviour {
         }
         else if(currentMode == Mode.TRAINING)
         {
+            floatingText.ShowText("Training mode");
             envManager.DisableEditing();
             trainManager.StartTraining();
             //canvas.GetComponent<FloatingCanvas>().Deactivate();

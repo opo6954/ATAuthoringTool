@@ -17,35 +17,32 @@ public class MyoInputManager:MonoBehaviour{
 
     public void Update()
     {
-        if (!myoInputLeft.isReady)
+        
+        if (myoGes1.isLeft)
         {
-            if (myoGes1.isLeft)
-            {
-                myoInputLeft = new MyoInput(myoGes1);
-                Debug.Log("Left myo is ready to deploy!");
-            }
-                
-            if (myoGes2.isLeft)
-            {
-                myoInputLeft = new MyoInput(myoGes2);
-                Debug.Log("Left myo is ready to deploy!");
-            }
-                
+            myoInputLeft.SetMyo(myoGes1);
+            //Debug.Log("Left myo is ready to deploy!");
         }
-        if (!myoInputRight.isReady)
+                
+        if (myoGes2.isLeft)
         {
-            if (myoGes1.isRight)
-            {
-                myoInputRight = new MyoInput(myoGes1);
-                Debug.Log("Right myo is ready to deploy!");
-            }
-                
-            if (myoGes2.isRight)
-            {
-                myoInputRight = new MyoInput(myoGes2);
-                Debug.Log("Right myo is ready to deploy!");
-            }                
+            myoInputLeft.SetMyo(myoGes2);
+            //Debug.Log("Left myo is ready to deploy!");
         }
+                
+        
+        if (myoGes1.isRight)
+        {
+            myoInputRight.SetMyo(myoGes1);
+            //Debug.Log("Right myo is ready to deploy!");
+        }
+                
+        if (myoGes2.isRight)
+        {
+            myoInputRight.SetMyo(myoGes2);
+            //Debug.Log("Right myo is ready to deploy!");
+        }                
+        
             
     }
 }

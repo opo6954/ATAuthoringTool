@@ -17,7 +17,7 @@ public class TaskModuleTemplate{
 
      
     protected PlayerTemplate myPlayerInfo;//선택된 player 종류
-    protected UIModuleTemplate myUIInfo;//선택된 UI 종류
+    //protected UIModuleTemplate myUIInfo;//선택된 UI 종류
     
     public string myTaskName;//customized name
 	public string myTaskType;//type of task: pre-defined
@@ -28,7 +28,7 @@ public class TaskModuleTemplate{
     
     private bool isTaskStart;
     private bool isTaskEnd;
-    private bool isTaskDoing;
+    public bool isTaskDoing;
 
 	private int myTaskIdx = 0;//
 
@@ -173,7 +173,7 @@ public class TaskModuleTemplate{
 
     public void setMyUI(UIModuleTemplate uimodule)
     {
-        myUIInfo = uimodule;
+        //myUIInfo = uimodule;
     }
 
     public void setMyPosition(Transform _position)
@@ -186,10 +186,7 @@ public class TaskModuleTemplate{
         return myPosition;
     }
 
-    public GameObject getBackgroundUI()
-    {
-        return myUIInfo.getUIPrefab("BackgroundForm");
-    }
+    
 
 
   
@@ -226,7 +223,7 @@ public class TaskModuleTemplate{
         for (int i = 0; i < myStateList.Count; i++)
         {
             myStateList[i].setMyPosition(getMyPosition());
-            myStateList[i].turnOffMyUI();
+            //myStateList[i].turnOffMyUI();
             
             
         }
@@ -274,14 +271,7 @@ public class TaskModuleTemplate{
         {
             Debug.Log("다음 task가 존재하지 않습니다 마지막 task로 간주합니다.");
         }
-
-
-
-
-		myUIInfo.deleteUIAll ();
-
-
-
+        
 
     }
 

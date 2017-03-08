@@ -14,13 +14,13 @@ public class TrainingManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         isTraining = false;
-	}
+        dat.Init();
+    }
 
     public void StartTraining()
     {
         isTraining = true;
         extingushing.SetHoseActive();
-        dat.Init();
     }
 
     public void StopTraining()
@@ -31,20 +31,23 @@ public class TrainingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        if (!isTraining)
-            return;
+        //if (!isTraining)
+            //return;
         if (sc.scenarioSeq.Count > 0)
         {
             currentScenario = sc.scenarioSeq[scenarioIndex];
-            
-            if(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Patrol_Contents"))
+
+            //if taskStart function is already called that contains building of state list...
+            if (sc.currTaskExecute.isTaskDoing == true)
             {
-                floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Patrol_Contents"));
-            }
-            else if (sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Notice_Contents"))
-            {
-                floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Notice_Contents"));
+                if (sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Patrol_Contents"))
+                {
+                    floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Patrol_Contents"));
+                }
+                else if (sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Notice_Contents"))
+                {
+                    floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Notice_Contents"));
+                }
             }
         }        
 	}

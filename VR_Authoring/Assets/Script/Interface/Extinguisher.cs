@@ -101,19 +101,41 @@ public class Extinguisher: MonoBehaviour {
             }
 
             // for shooting (right hand)
-            if (myoManager.myoInputRight.isReady && isReady)
+
+            // WARNING : hard hard coding
+            //if (myoManager.numOfMyos == 2)
+            if(false)
             {
-                if (myoManager.myoInputRight.myo.myo.pose == Thalmic.Myo.Pose.Fist)
+                if (myoManager.myoInputRight.isReady && isReady)
                 {
-                    Shoot();
+                    if (myoManager.myoInputRight.myo.myo.pose == Thalmic.Myo.Pose.Fist)
+                    {
+                        Shoot();
+                    }
+                    else
+                    {
+                        StopShooting();
+                    }
                 }
                 else
-                {
                     StopShooting();
-                }
             }
             else
-                StopShooting();
+            {
+                if (myoManager.myoInputLeft.isReady && isReady)
+                {
+                    if (myoManager.myoInputLeft.myo.myo.pose == Thalmic.Myo.Pose.Fist)
+                    {
+                        Shoot();
+                    }
+                    else
+                    {
+                        StopShooting();
+                    }
+                }
+                else
+                    StopShooting();
+            }
         }
             
     }

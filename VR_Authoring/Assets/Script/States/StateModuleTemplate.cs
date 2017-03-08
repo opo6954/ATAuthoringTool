@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using HoloToolkit.Unity.InputModule;
 /*
  * State module을 위한 template, State는 UIForm과 1대1로 매칭될 수 있습니다. 
  * Init, Process, Goal, Res로 구성
@@ -19,7 +19,8 @@ using System.Collections.Generic;
  * */
 
 public class StateModuleTemplate {
-
+    public MyoInputManager mim;
+    public GesturesInput holoGesture;
     private bool isStateStart = false;
     private bool isStateDoing = false;
     public bool isStateEnd = false;
@@ -114,30 +115,33 @@ public class StateModuleTemplate {
 
     ///////////////Utility 함수들
     //특정 object에 가까이 가면 true 리턴, 아닐 시 false 리턴
-    public bool amISeeObject(GameObject target, float shout_angle = 0.5f, float shout_range = 5.0f)
+    public bool amISeeObject(GameObject target, float shout_angle = 0.5f, float shout_range = 5.0f, string shouldNear = "False")
     {
+        bool isLooking = false;
+        bool isNear = false;
         if ((target.transform.GetChild(0).GetComponent("GazeLogger") as GazeLogger) != null)
         {
             if (target.transform.GetChild(0).GetComponent<GazeLogger>().isGazed)
-                return true;
+                isLooking = true;
         }
 
         float distance = (target.transform.position - myPosition.position).magnitude;
-        float angle = Vector3.Dot((target.transform.position - myPosition.position).normalized, Camera.main.transform.forward.normalized);
+        //Debug.Log("Distance : " + distance);
+        //float angle = Vector3.Dot((target.transform.position - myPosition.position).normalized, Camera.main.transform.forward.normalized);
 		if (shout_range <= 0) {
 			shout_range = 0.5f;
 		}
-		if (shout_angle <= 0) {
-			shout_angle = 3.0f;
-		}
 
-
-        if (distance < shout_range && angle < shout_angle)
+        if(distance < shout_range)
         {
-			
-            return true;
+            isNear = true;
         }
-        return false;
+        
+        if (shouldNear.Equals("True"))
+            return isNear && isLooking;
+        else
+            return isNear || isLooking;
+        
     }
 
     //주어진 gameObject의 component를 끄고 켜기
@@ -148,7 +152,16 @@ public class StateModuleTemplate {
     }
 
     //입력함수
+    public bool isHoloGestureTapped()
+    {
+        return holoGesture.currentGesture == GesturesInput.Gesture.TAP;
+    }
 
+    public void InvalidateHoloGesture()
+    {
+        holoGesture.currentGesture = GesturesInput.Gesture.NONE;
+    }
+    
     public bool isKeyDown(string keyName)
     {
         bool isKeyPressed = false;
@@ -169,7 +182,6 @@ public class StateModuleTemplate {
 
         return isKeyPressed;
     }
-
 
 	/*
 	 * public PlaySoundsState(TaskModuleTemplate _myModule, GameObject _UI)
@@ -238,6 +250,7 @@ public class StateModuleTemplate {
     public virtual void Init()
     {
         Debug.Log(myStateName +  " state 시작");
+        holoGesture = GameObject.Find("GesturesInput_Hololens").GetComponent<GesturesInput>();
 		//turnOnMyUI ();
     }
     //Goal이 false일때 계속 수행하는 작업

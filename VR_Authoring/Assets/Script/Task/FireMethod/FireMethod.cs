@@ -71,17 +71,20 @@ public class FireMethod : TaskModuleTemplate {
 		c.setProperty (getProperties ());
 		c.setObject (getObjects ());
 
+        ExtinguishState d = new ExtinguishState(this);
+        d.setProperty(getProperties());
+        d.setObject(getObjects());
 
 
 
 
-
-		myStateList.Add (a); 
-		myStateList.Add (b);
+        myStateList.Add (a); 
 		myStateList.Add (c);
+		myStateList.Add (b);
+        myStateList.Add(d);
 
 
-		for (int i = 0; i < myStateList.Count; i++) {
+        for (int i = 0; i < myStateList.Count; i++) {
 			//myStateList [i].turnOffMyUI ();
 		}
 

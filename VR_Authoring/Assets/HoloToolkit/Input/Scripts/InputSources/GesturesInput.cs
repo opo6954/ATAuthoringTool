@@ -13,6 +13,9 @@ namespace HoloToolkit.Unity.InputModule
     /// </summary>
     public class GesturesInput : BaseInputSource
     {
+        public enum Gesture { NONE, TAP };
+        public Gesture currentGesture;
+
         // This enumeration gives the manager two different ways to handle the recognizer. Both will
         // set up the recognizer. The first causes the recognizer to start
         // immediately. The second allows the recognizer to be manually started at a later time.
@@ -30,7 +33,7 @@ namespace HoloToolkit.Unity.InputModule
         protected override void Start()
         {
             base.Start();
-
+            currentGesture = Gesture.NONE;
             gestureRecognizer = new GestureRecognizer();
             gestureRecognizer.TappedEvent += OnTappedEvent;
             
@@ -152,6 +155,7 @@ namespace HoloToolkit.Unity.InputModule
         protected void OnTappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
         {
             Debug.Log("GazeInput : Tapped");
+            currentGesture = Gesture.TAP;
             inputManager.RaiseInputClicked(this, 0, tapCount);
         }
 

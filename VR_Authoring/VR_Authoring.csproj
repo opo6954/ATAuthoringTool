@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\DebugAuthoringTools.cs" />
+    <Compile Include="Assets\GesturesInputManager.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\DeleteLine.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\IGeometry.cs" />
@@ -527,6 +528,7 @@
     <Compile Include="Assets\Script\ScenarioController\ScenarioController.cs" />
     <Compile Include="Assets\Script\States\ApproachObjState.cs" />
     <Compile Include="Assets\Script\States\ButtonPressState.cs" />
+    <Compile Include="Assets\Script\States\ExtinguishState.cs" />
     <Compile Include="Assets\Script\States\MethodLearnState.cs" />
     <Compile Include="Assets\Script\States\PlaySoundsState.cs" />
     <Compile Include="Assets\Script\States\QuestioningState.cs" />

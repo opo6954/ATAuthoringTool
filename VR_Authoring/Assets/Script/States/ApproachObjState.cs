@@ -22,7 +22,9 @@ public class ApproachObjState : StateModuleTemplate {
 	public override void setProperty (Dictionary<string, object> properties)
 	{
 		addProperty ("Patrol_Contents", properties ["Patrol_Contents"]);
-
+        if (properties.ContainsKey("Approach_ShouldNear"))
+            addProperty("Approach_ShouldNear", properties["Approach_ShouldNear"]);
+        
 		if(properties.ContainsKey("Approach_Distance"))
 			addProperty ("Approach_Distance", properties ["Approach_Distance"]);
 
@@ -65,7 +67,7 @@ public class ApproachObjState : StateModuleTemplate {
     {
         if (isContainObject("Approach_to_Object") == true)
         {
-			if (amISeeObject(getObject<GameObject>("Approach_to_Object"), getProperty<float>("Approach_Angle"), getProperty<float>("Approach_Distance")) == true)
+			if (amISeeObject(getObject<GameObject>("Approach_to_Object"), getProperty<float>("Approach_Angle"), getProperty<float>("Approach_Distance"), getProperty<string>("Approach_ShouldNear")) == true)
                 return true;
         }
         else

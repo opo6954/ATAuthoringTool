@@ -20,13 +20,13 @@ public class TrainingManager : MonoBehaviour {
     public void StartTraining()
     {
         isTraining = true;
-        extingushing.SetHoseActive();
+        //extingushing.SetHoseActive();
     }
 
     public void StopTraining()
     {
         isTraining = false;
-        extingushing.SetHoseDeactive();
+        //extingushing.SetHoseDeactive();
     }
 	
 	// Update is called once per frame
@@ -40,11 +40,11 @@ public class TrainingManager : MonoBehaviour {
             //if taskStart function is already called that contains building of state list...
             if (sc.currTaskExecute.isTaskDoing == true)
             {
-                if (sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Patrol_Contents"))
+                if (sc.currTaskExecute.stateIdx < sc.currTaskExecute.myStateList.Count && sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Patrol_Contents"))
                 {
                     floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Patrol_Contents"));
                 }
-                else if (sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Notice_Contents"))
+                else if (sc.currTaskExecute.stateIdx < sc.currTaskExecute.myStateList.Count && sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Notice_Contents"))
                 {
                     floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Notice_Contents"));
                 }

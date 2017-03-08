@@ -114,7 +114,12 @@ public class ScenarioModuleTemplate {
     }
 
     
-
+    void FinishScenario()
+    {
+        // WARNING : hard coding
+        GameObject.Find("FloatingUI_Timed").GetComponent<TimedBillText>().ShowText("화재 훈련이 성공적으로 끝났습니다.");
+        GameObject.Find("ModeSelector").GetComponent<ModeSelector>().SetMode(ModeSelector.Mode.NONE);
+    }
 
 	//build 관련
 
@@ -126,7 +131,7 @@ public class ScenarioModuleTemplate {
 				taskList [taskIdx].setStartTrigger ();//다음 task를 실행하기
 			} else {
 				Debug.Log ("No Next Task Found");
-
+                FinishScenario();
 				myParent.triggerScenario (myScenarioIdx + 1);
 			}
 		} else if (taskIdx == 0) {

@@ -46,7 +46,8 @@ public class QuestioningState : StateModuleTemplate {
 
 	public override void setProperty (System.Collections.Generic.Dictionary<string, object> properties)
 	{
-		addProperty ("Report_Count", properties["Report_Count"]);
+        addProperty("Notice_Contents", properties["Notice_Contents"]);
+        addProperty ("Report_Count", properties["Report_Count"]);
 		addProperty ("Report_Question", properties["Report_Question"]);
 		addProperty ("Report_Answer", properties["Report_Answer"]);
 		addProperty ("Report_TrueAns", properties["Report_TrueAns"]);
@@ -81,19 +82,22 @@ public class QuestioningState : StateModuleTemplate {
 		base.Process ();
 
 
-		getKeyInput ();
+		//getKeyInput ();
 	}
 
 	public override bool Goal ()
 	{
+        // WARNING : hard coding
+        return (isHoloGestureTapped() && GameObject.Find("M_ShipPhone").GetComponent<GazeLogger>().isGazed);
+        /*
 		string[] questions = getProperty<string[]> ("Report_Question");
 		if (correctNum == questions.Length) {
 			return true;
 		} else
 			return false;
+        */
 
-
-	}
+    }
 
 	public override void Res ()
 	{
@@ -119,10 +123,11 @@ public class QuestioningState : StateModuleTemplate {
 	//키 입력 받는 함수 
 	public void getKeyInput()
 	{
-		//x버튼: 답 결정
-        
-		if (isKeyDown (selectButton) == true) {
-			int[] trueAns = getProperty<int[]> ("Report_TrueAns");
+        //x버튼: 답 결정
+
+        //if (isKeyDown (selectButton) == true) {
+        if (isHoloGestureTapped()) { 
+            int[] trueAns = getProperty<int[]> ("Report_TrueAns");
 
 			if (trueAns [currQuesIdx] == currAnsIdx) {//정답 맞음
 				correctNum = correctNum + 1;
@@ -144,10 +149,11 @@ public class QuestioningState : StateModuleTemplate {
 
 
 			}
-			//addProperty ("Report_TrueAns", trueAnswer);
-		}
-		//y버튼: 선택 답 이동
-		if (isKeyDown (moveButton) == true) {
+        //addProperty ("Report_TrueAns", trueAnswer);
+    }
+        //y버튼: 선택 답 이동
+        if (isHoloGestureTapped()) { 
+		//if (isKeyDown (moveButton) == true) {
 			currAnsIdx = currAnsIdx + 1;
 			if (currAnsIdx >= currAnsNum) {
 				//다시 처음으로 reset

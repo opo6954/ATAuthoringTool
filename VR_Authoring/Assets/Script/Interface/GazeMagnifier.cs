@@ -11,10 +11,12 @@ public class GazeMagnifier : MonoBehaviour
     private AudioSource audioSource;
     public float highlightScale = 1.5f;
     float originalScale = 1.0f;
+    public bool isEnabled = true;
+    public bool isGazed;
 
     void Start()
     {
-
+        isGazed = false;
         // Add a BoxCollider if the interactible does not contain one.
         Collider collider = GetComponentInChildren<Collider>();
         if (collider == null)
@@ -47,25 +49,33 @@ public class GazeMagnifier : MonoBehaviour
 
     void GazeEntered()
     {
-        Debug.Log("Gaze Entered! : " + this.transform.name); 
-        this.GetComponent<Control_objectify>().isObjectify = true;
+        Debug.Log("Gaze Entered! : " + this.transform.name);
+        isGazed = true;
+        // WARNING : hard coding
+        transform.parent.GetComponent<GazeLogger>().isGazed = true;
+        if (isEnabled)
+        {
+            this.GetComponent<Control_objectify>().isObjectify = true;
+
+            // Play the audioSource feedback when we gaze and select a hologram.
+            if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+            
     }
 
     void GazeExited()
     {
-        this.GetComponent<Control_objectify>().isObjectify = false;
+        isGazed = false;
+        if (isEnabled)
+            this.GetComponent<Control_objectify>().isObjectify = false;
     }
 
     void OnSelect()
     {
-        
-
-        // Play the audioSource feedback when we gaze and select a hologram.
-        if (audioSource != null && !audioSource.isPlaying)
-        {
-            audioSource.Play();
-        }
-
+        Debug.Log("Selected");
         /* TODO: DEVELOPER CODING EXERCISE 6.a */
         // 6.a: Handle the OnSelect by sending a PerformTagAlong message.
         this.SendMessage("PerformTagAlong");

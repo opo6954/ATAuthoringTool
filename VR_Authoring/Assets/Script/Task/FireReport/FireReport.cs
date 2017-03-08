@@ -30,9 +30,6 @@ public class FireReport : TaskModuleTemplate
 	GameObject defaultForm = null;
 	GameObject questionForm = null;
 
-
-
-
     
     public override void TaskInit()
     {
@@ -72,7 +69,7 @@ public class FireReport : TaskModuleTemplate
 
 		//questionForm.GetComponent<ReportForm> ().turnOnOffMyPart (false);
 
-		questionForm.gameObject.SetActive (false);
+		//questionForm.gameObject.SetActive (false);
     }
 
     public override void TaskFinish()

@@ -10,14 +10,15 @@ using System.Collections;
  * 필요없음
  * 
  * */
-public class ButtonPressState : StateModuleTemplate {
+public class ExtinguishState : StateModuleTemplate {
 
     //GameObject backgroundUI;
 
 	string button = "";
+    GameObject extinguisherObject;
 
 
-	public ButtonPressState(TaskModuleTemplate _myModule) : base(_myModule)
+	public ExtinguishState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 		
 	}
@@ -25,12 +26,10 @@ public class ButtonPressState : StateModuleTemplate {
 
 	public override void setProperty (System.Collections.Generic.Dictionary<string, object> properties)
 	{
-		addProperty("Notice_Contents", properties["Notice_Contents"]);
-		addProperty("Guide_Contents", properties["Guide_Contents"]);
-		addProperty ("Select_Button_Info", properties ["Select_Button_Info"]);
-
-		button = getProperty<string> ("Select_Button_Info");
-
+		addProperty("Notice_Contents1", properties["Notice_Contents1"]);
+        addProperty("Notice_Contents2", properties["Notice_Contents2"]);
+        addProperty("Notice_Contents3", properties["Notice_Contents3"]);
+        
 	}
 
 	public override void setObject (System.Collections.Generic.Dictionary<string, object> objects)
@@ -40,36 +39,13 @@ public class ButtonPressState : StateModuleTemplate {
 
     public override void Init()
     {
-		myStateName = "화면이 멈춘 상태에서 특정 키 누르기";
+		myStateName = "화재 소화";
 
         base.Init();
-
-        
-
-        if (isContainProperty("Notice_Contents") == false || isContainProperty("Guide_Contents") == false)
-        {
-            Debug.Log("Notice_Contents Property와 Guide_Contents Property가 설정되지 않았습니다.");
-        }
-        else
-        {
-            //myUIInfo.GetComponent<DefaultForm>().changeCurrTaskInfo(getProperty<string>("Notice_Contents"));
-            //myUIInfo.GetComponent<DefaultForm>().toggleShownCurrTaskInfo(true);
-
-
-
-            //backgroundUI = myModuleInfo.getBackgroundUI();
-
-            //backgroundUI.GetComponent<BackgroundForm>().changeButtonInfo(getProperty<string>("Guide_Contents"));
-            
-            
-
-
-            //lock the screen
-
-            //lockFPSScreen(true);
-
-
-        }
+        // WARNING : hard coding
+        GameObject.Find("Extinguisher").GetComponent<Extinguisher>().SetHoseActive();
+        extinguisherObject = GameObject.Find("FireExtinguisher");
+        extinguisherObject.SetActive(false);
     }
 
     public override void Process()
@@ -80,9 +56,13 @@ public class ButtonPressState : StateModuleTemplate {
 
     public override bool Goal()
     {
-        //if (isKeyDown(button) == true)
-        if(isHoloGestureTapped())
+        // WARNING : hard coding
+        Debug.Log(GameObject.Find("M_Fire").GetComponent<FireEffect>().life);
+        if(GameObject.Find("M_Fire").GetComponent<FireEffect>().isDead)
         {
+            // WARNING : hard coding
+            GameObject.Find("Extinguisher").GetComponent<Extinguisher>().SetHoseDeactive();
+            extinguisherObject.SetActive(true);
             return true;
         }
 

@@ -46,7 +46,7 @@ public class PlaySoundsState : StateModuleTemplate {
 			AudioSource audioSource = getObject<GameObject> ("Sound_from_Object").AddComponent<AudioSource>();
 
 			audioSource.clip = Resources.Load ("Sound/" + getProperty<string> ("SoundName")) as AudioClip;
-
+            audioSource.volume = 0.1f;
 
 
 

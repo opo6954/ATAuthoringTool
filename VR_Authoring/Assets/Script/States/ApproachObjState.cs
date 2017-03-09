@@ -68,7 +68,11 @@ public class ApproachObjState : StateModuleTemplate {
         if (isContainObject("Approach_to_Object") == true)
         {
 			if (amISeeObject(getObject<GameObject>("Approach_to_Object"), getProperty<float>("Approach_Angle"), getProperty<float>("Approach_Distance"), getProperty<string>("Approach_ShouldNear")) == true)
+            {
+                GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
                 return true;
+            }
+                
         }
         else
         {

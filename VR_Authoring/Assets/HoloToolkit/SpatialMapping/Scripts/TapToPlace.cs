@@ -120,6 +120,14 @@ namespace HoloToolkit.Unity.SpatialMapping
                 return;
             if (IsBeingPlaced)
             {
+                foreach(Transform child in GameObject.Find("InteractableObject").transform)
+                {
+                    Debug.Log(child.name + "\t" + this.transform.name);
+                    if(!child.name.Equals(this.transform.name))
+                    {
+                        child.GetComponent<TapToPlace>().IsEditing = false;
+                    }
+                }
                 // Do a raycast into the world that will only hit the Spatial Mapping mesh.
                 Vector3 headPosition = Camera.main.transform.position;
                 Vector3 gazeDirection = Camera.main.transform.forward;
@@ -161,7 +169,7 @@ namespace HoloToolkit.Unity.SpatialMapping
 
         public void ChangeState()
         {
-            Debug.Log("ChangeState");
+            //Debug.Log("ChangeState");
             if (!IsEditing)
                 return;
             // On each tap gesture, toggle whether the user is in placing mode.
@@ -184,6 +192,11 @@ namespace HoloToolkit.Unity.SpatialMapping
                 anchorManager.AttachAnchor(gameObject, SavedAnchorFriendlyName);
                 anchorManager.GetComponent<WorldAnchor>();
                 //bool saved = anchorStore.Save(SavedAnchorFriendlyName, self);
+
+                foreach (Transform child in GameObject.Find("InteractableObject").transform)
+                {
+                    child.GetComponent<TapToPlace>().IsEditing = true;
+                }
             }
         }
 

@@ -14,6 +14,7 @@ public class ModeSelector : MonoBehaviour {
 
     public int pauseCountOffset = 5;
     public Mode currentMode = Mode.NONE;
+    public Mode previousMode = Mode.NONE;
     int pauseCountLeft;
     int pauseCountRight;
 
@@ -29,13 +30,12 @@ public class ModeSelector : MonoBehaviour {
 
     public void SetMode(int newMode)
     {
+        Debug.Log("ModeSelector : mode - " + newMode);
         currentMode = (Mode)newMode;
     }
 
     void GetGesture()
     {
-        if (currentMode != Mode.NONE)
-            return;
         if (myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())
         {
             ShowMenu(false);
@@ -43,7 +43,9 @@ public class ModeSelector : MonoBehaviour {
             pauseCountRight = 0;
             return;
         }
-
+        if (currentMode != Mode.NONE)
+            return;
+        
         // give a torrelance for gesture
         if (myoInputManager.myoInputLeft.Pause())
             pauseCountLeft = pauseCountOffset;
@@ -74,7 +76,7 @@ public class ModeSelector : MonoBehaviour {
 
     void AdjustMode()
     {
-        if (currentMode == Mode.EDITING)
+        if (currentMode == Mode.EDITING && previousMode != Mode.EDITING)
         {
             floatingText.ShowText("Editing mode");
             envManager.EnableEditing();
@@ -82,19 +84,20 @@ public class ModeSelector : MonoBehaviour {
             //canvas.GetComponent<FloatingCanvas>().Deactivate();
             //canvas.GetComponent<FloatingCanvas>().ActivateObjectSelect();
         }
-        else if(currentMode == Mode.TRAINING)
+        else if(currentMode == Mode.TRAINING && previousMode != Mode.TRAINING)
         {
             floatingText.ShowText("Training mode");
             envManager.DisableEditing();
             trainManager.StartTraining();
             //canvas.GetComponent<FloatingCanvas>().Deactivate();
         }
-        else
+        else if(currentMode == Mode.NONE && previousMode != Mode.NONE)
         {
             envManager.DisableEditing();
             trainManager.StopTraining();
             canvas.GetComponent<FloatingCanvas>().ActivateModeSelect();
         }
+        previousMode = currentMode;
     }
 
     // Update is called once per frame

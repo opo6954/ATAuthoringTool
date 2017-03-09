@@ -88,7 +88,14 @@ public class QuestioningState : StateModuleTemplate {
 	public override bool Goal ()
 	{
         // WARNING : hard coding
-        return (isHoloGestureTapped() && GameObject.Find("M_ShipPhone").GetComponent<GazeLogger>().isGazed);
+        if (isHoloGestureTapped() && GameObject.Find("M_ShipPhone").GetComponent<GazeLogger>().isGazed)
+        {
+            GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
+            return true;
+        }
+        else
+            return false;
+        
         /*
 		string[] questions = getProperty<string[]> ("Report_Question");
 		if (correctNum == questions.Length) {

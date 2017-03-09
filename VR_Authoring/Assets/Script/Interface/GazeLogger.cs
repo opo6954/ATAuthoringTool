@@ -8,6 +8,8 @@ public class GazeLogger : MonoBehaviour
 {
     [Tooltip("Audio clip to play when interacting with this hologram.")]
     public AudioClip TargetFeedbackSound;
+    public LogManager logManager;
+    public ModeSelector modeSelector;
 
     public bool isGazed;
 
@@ -50,7 +52,9 @@ public class GazeLogger : MonoBehaviour
 
     void GazeEntered()
     {
-        Debug.Log("Gaze Entered! : " + this.transform.name);
+        //Debug.Log("Gaze Entered! : " + this.transform.name);
+        LogManager.logType lt = LogManager.logType.Gaze;
+        LogManager.LogCollector(lt, Time.realtimeSinceStartup - LogManager.startTime, 0, (int)modeSelector.currentMode);
         isGazed = true;
     }
 

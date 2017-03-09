@@ -93,6 +93,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CorrectWrongSound.cs" />
     <Compile Include="Assets\DebugAuthoringTools.cs" />
     <Compile Include="Assets\GesturesInputManager.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
@@ -492,6 +493,7 @@
     <Compile Include="Assets\Myo\Scripts\Myo.NET\libmyo.cs" />
     <Compile Include="Assets\Myo\Scripts\ThalmicHub.cs" />
     <Compile Include="Assets\Myo\Scripts\ThalmicMyo.cs" />
+    <Compile Include="Assets\NarrativeSoundManager.cs" />
     <Compile Include="Assets\OfficeMegaKit\Office Tile Kit\Scripts\SimpleDoorTrigger.cs" />
     <Compile Include="Assets\OfficeMegaKit\OfficeBathroomKit\MirrorAsset\MirrorReflection.cs" />
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\BackgroundForm.cs" />
@@ -518,6 +520,7 @@
     <Compile Include="Assets\Script\Interface\MyoGesture.cs" />
     <Compile Include="Assets\Script\Interface\MyoInput.cs" />
     <Compile Include="Assets\Script\Interface\MyoInputManager.cs" />
+    <Compile Include="Assets\Script\Misc\LogManager.cs" />
     <Compile Include="Assets\Script\Misc\Logger.cs" />
     <Compile Include="Assets\Script\Misc\ModeSelector.cs" />
     <Compile Include="Assets\Script\Misc\TrainingManager.cs" />

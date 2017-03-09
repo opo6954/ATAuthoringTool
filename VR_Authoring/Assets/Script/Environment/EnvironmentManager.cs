@@ -31,11 +31,15 @@ public class EnvironmentManager : MonoBehaviour {
 
             if (myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())
             {
+                ShowMenu(false);
+                /*
+                Debug.Log("Back to main");
                 spatialMapping.SetActive(false);
                 DisableEditing();
                 this.transform.parent.GetComponent<ModeSelector>().SetMode(ModeSelector.Mode.NONE);
                 this.transform.parent.GetComponent<ModeSelector>().ShowMenu(true);
                 floatingText.ShowText("Selection mode");
+                */
             }
         }
         else

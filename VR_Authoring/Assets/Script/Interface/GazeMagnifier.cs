@@ -14,6 +14,10 @@ public class GazeMagnifier : MonoBehaviour
     public bool isEnabled = true;
     public bool isGazed;
 
+    public LogManager logManager;
+    public ModeSelector modeSelector;
+
+
     void Start()
     {
         isGazed = false;
@@ -42,6 +46,7 @@ public class GazeMagnifier : MonoBehaviour
             audioSource.playOnAwake = false;
             audioSource.spatialBlend = 1;
             audioSource.dopplerLevel = 0;
+            audioSource.volume = 0.5f;
         }
     }
 
@@ -49,7 +54,9 @@ public class GazeMagnifier : MonoBehaviour
 
     void GazeEntered()
     {
-        Debug.Log("Gaze Entered! : " + this.transform.name);
+        //Debug.Log("Gaze Entered! : " + this.transform.name);
+        LogManager.logType lt = LogManager.logType.Gaze;
+        LogManager.LogCollector(lt, Time.realtimeSinceStartup - LogManager.startTime, 0, (int)modeSelector.currentMode);
         isGazed = true;
         // WARNING : hard coding
         transform.parent.GetComponent<GazeLogger>().isGazed = true;

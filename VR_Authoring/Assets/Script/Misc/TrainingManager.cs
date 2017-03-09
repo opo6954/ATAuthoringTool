@@ -5,6 +5,7 @@ using UnityEngine;
 public class TrainingManager : MonoBehaviour {
     public ScenarioController sc;
     public GameObject floatingText;
+    public NarrativeSoundManager nsm;
     public bool isTraining;
     public Extinguisher extingushing;
     ScenarioModuleTemplate currentScenario;
@@ -31,8 +32,8 @@ public class TrainingManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //if (!isTraining)
-            //return;
+        if (!isTraining)
+            return;
         if (sc.scenarioSeq.Count > 0)
         {
             currentScenario = sc.scenarioSeq[scenarioIndex];
@@ -42,11 +43,13 @@ public class TrainingManager : MonoBehaviour {
             {
                 if (sc.currTaskExecute.stateIdx < sc.currTaskExecute.myStateList.Count && sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Patrol_Contents"))
                 {
-                    floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Patrol_Contents"));
+                    GameObject.Find("FloatingUI_Timed").GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Patrol_Contents"));
+                    nsm.Play();
                 }
                 else if (sc.currTaskExecute.stateIdx < sc.currTaskExecute.myStateList.Count && sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].isContainProperty("Notice_Contents"))
                 {
-                    floatingText.GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Notice_Contents"));
+                    GameObject.Find("FloatingUI_Timed").GetComponent<TimedBillText>().ShowText(sc.currTaskExecute.myStateList[sc.currTaskExecute.stateIdx].getProperty<string>("Notice_Contents"));
+                    nsm.Play();
                 }
             }
         }        

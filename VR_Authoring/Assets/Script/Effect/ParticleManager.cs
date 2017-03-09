@@ -19,11 +19,14 @@ public class ParticleManager : MonoBehaviour {
 
     void OnParticleCollision(GameObject other)
     {
-        fe.Attacked();
+        //if(other.transform.name== "M_Fire")
+            fe.Attacked();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.transform.name);
+        //if (other.transform.name == "M_Fire")
         fe.Attacked();
     }
 }

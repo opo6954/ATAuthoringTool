@@ -188,6 +188,7 @@ namespace HoloToolkit.Unity.SpatialMapping
             if (ObserverState == ObserverStates.Running)
             {
                 Debug.Log("Stopping the observer.");
+                LogManager.SaveFile();
                 ObserverState = ObserverStates.Stopped;
 
                 surfaceWorkQueue.Clear();

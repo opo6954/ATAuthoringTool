@@ -83,6 +83,7 @@ public class ButtonPressState : StateModuleTemplate {
         //if (isKeyDown(button) == true)
         if(isHoloGestureTapped())
         {
+            GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
             return true;
         }
 

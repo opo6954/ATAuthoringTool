@@ -12,6 +12,8 @@ public class MyoGesture:MonoBehaviour{
     public int blockTerm = 10;
     public bool isLeft = false;
     public bool isRight = false;
+    public LogManager logManager;
+    public ModeSelector modeSelector;
 
     int blockCount = 0;
     bool isBlocked = false;
@@ -87,6 +89,8 @@ public class MyoGesture:MonoBehaviour{
             {
                 currentGesture = Gesture.DOUBLE_TAP;
                 Flush();
+                LogManager.logType lt = LogManager.logType.DoubleTap;
+                LogManager.LogCollector(lt, Time.realtimeSinceStartup - LogManager.startTime, 0, (int)modeSelector.currentMode);
                 Debug.Log("MYO GESTURE : Double tap");
                 return;
             }
@@ -94,6 +98,7 @@ public class MyoGesture:MonoBehaviour{
             {
                 spreadCount++;
                 fistCount = 0;
+
             }
             else if(stream[i] == Pose.Fist)
             {
@@ -106,13 +111,17 @@ public class MyoGesture:MonoBehaviour{
         {
             currentGesture = Gesture.SPREAD_HOLD;
             Flush();
+            LogManager.logType lt = LogManager.logType.SpreadHold;
+            LogManager.LogCollector(lt, Time.realtimeSinceStartup - LogManager.startTime, 0, (int)modeSelector.currentMode);
             Debug.Log("MYO GESTURE : Finger spread hold");
         }
         if (fistCount >= streamLength)
         {
+            LogManager.logType lt = LogManager.logType.FistHold;
+            LogManager.LogCollector(lt, Time.realtimeSinceStartup - LogManager.startTime, 0, (int)modeSelector.currentMode);
             currentGesture = Gesture.FIST_HOLD;
             Flush();
-            Debug.Log("MYO GESTURE : Fist hold");
+            //Debug.Log("MYO GESTURE : Fist hold");
         }
     }
 

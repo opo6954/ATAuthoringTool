@@ -81,7 +81,8 @@ public class PlaySoundsState : StateModuleTemplate {
 
 	public override bool Goal ()
 	{
-		return true;
+        GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
+        return true;
 	}
 	
 }

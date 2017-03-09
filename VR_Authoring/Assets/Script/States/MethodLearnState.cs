@@ -183,7 +183,7 @@ public class MethodLearnState : StateModuleTemplate {
 
     public void goWrong()
     {
-        floatingText.ShowText("틀렸습니다. 처음부터 다시 하세요.");
+        GameObject.Find("FloatingUI_Timed").GetComponent<TimedBillText>().ShowText("틀렸습니다. 처음부터 다시 하세요.");
         currentState = 0;
         enableAllParts();
         playWrongSound();
@@ -192,11 +192,13 @@ public class MethodLearnState : StateModuleTemplate {
     void playCorrectSound()
     {
         Debug.Log("Correct!");
+        GameObject.Find("CorrectWrongSound").GetComponent<CorrectWrongSound>().PlayCorrectSound();
     }
 
     void playWrongSound()
     {
         Debug.Log("Wrong!");
+        GameObject.Find("CorrectWrongSound").GetComponent<CorrectWrongSound>().PlayWrongSound();
     }
 
 	public void selectTest()
@@ -268,7 +270,15 @@ public class MethodLearnState : StateModuleTemplate {
 
 	public override bool Goal ()
 	{
-        return completed;
+        if (completed)
+        {
+            GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
+            return true;
+        }
+        else
+            return false;
+        
+        
 	}
 
 	public override void Res ()

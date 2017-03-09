@@ -15,6 +15,8 @@ namespace HoloToolkit.Unity.InputModule
     {
         public enum Gesture { NONE, TAP };
         public Gesture currentGesture;
+        public LogManager logManager;
+        public ModeSelector modeSelector;
 
         // This enumeration gives the manager two different ways to handle the recognizer. Both will
         // set up the recognizer. The first causes the recognizer to start
@@ -155,6 +157,8 @@ namespace HoloToolkit.Unity.InputModule
         protected void OnTappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
         {
             Debug.Log("GazeInput : Tapped");
+            LogManager.logType lt = LogManager.logType.Tap;
+            LogManager.LogCollector(lt, Time.realtimeSinceStartup - LogManager.startTime, 0, (int)modeSelector.currentMode);
             currentGesture = Gesture.TAP;
             inputManager.RaiseInputClicked(this, 0, tapCount);
         }

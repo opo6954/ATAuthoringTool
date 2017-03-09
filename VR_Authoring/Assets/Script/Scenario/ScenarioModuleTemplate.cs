@@ -130,7 +130,7 @@ public class ScenarioModuleTemplate {
 			if (taskList.Count > taskIdx) {
 				taskList [taskIdx].setStartTrigger ();//다음 task를 실행하기
 			} else {
-				Debug.Log ("No Next Task Found");
+				//Debug.Log ("No Next Task Found");
                 FinishScenario();
 				myParent.triggerScenario (myScenarioIdx + 1);
 			}

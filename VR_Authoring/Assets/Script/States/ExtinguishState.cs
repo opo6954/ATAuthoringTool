@@ -57,12 +57,13 @@ public class ExtinguishState : StateModuleTemplate {
     public override bool Goal()
     {
         // WARNING : hard coding
-        Debug.Log(GameObject.Find("M_Fire").GetComponent<FireEffect>().life);
+        //Debug.Log(GameObject.Find("M_Fire").GetComponent<FireEffect>().life);
         if(GameObject.Find("M_Fire").GetComponent<FireEffect>().isDead)
         {
             // WARNING : hard coding
             GameObject.Find("Extinguisher").GetComponent<Extinguisher>().SetHoseDeactive();
             extinguisherObject.SetActive(true);
+            GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
             return true;
         }
 

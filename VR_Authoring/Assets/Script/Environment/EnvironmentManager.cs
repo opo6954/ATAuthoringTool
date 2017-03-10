@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity.SpatialMapping;
+using HoloToolkit.Unity.InputModule;
 
 public class EnvironmentManager : MonoBehaviour {
     public MyoInputManager myoInputManager;
@@ -24,9 +25,21 @@ public class EnvironmentManager : MonoBehaviour {
 	void Update () {
         if (isEditing)
         {
+            if (myoInputManager.myoInputLeft.Next() || myoInputManager.myoInputRight.Next())
+            {
+                GazeManager tempGM = GameObject.Find("InputManager").GetComponent<GazeManager>();
+                if (tempGM.IsGazingAtObject)
+                {
+                    Debug.Log(tempGM.HitObject.transform.name);
+                    if(tempGM.HitObject != null && tempGM.HitObject.transform.parent.GetComponent<TapToPlace>() != null)
+                    {
+                        tempGM.HitObject.transform.parent.GetComponent<TapToPlace>().ChangeState();
+                    }
+                }
+            }
             if (myoInputManager.myoInputLeft.Pause() || myoInputManager.myoInputRight.Pause())
             {
-                ShowMenu(true);
+                //ShowMenu(true);
             }
 
             if (myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())

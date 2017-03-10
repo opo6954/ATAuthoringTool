@@ -7,7 +7,7 @@ using System.IO;
 using UnityEditor;
 
 public class LogManager : MonoBehaviour{
-
+    public static GameObject interactableObject;
     /*
  * Logging할 내용
  * 
@@ -42,12 +42,22 @@ public class LogManager : MonoBehaviour{
         
 
         startTime = Time.realtimeSinceStartup;
+        
     }
     
+    static public void SavePosition(string name, Vector3 position)
+    {
+        string completeStr = name;
+        completeStr += ",";
+        completeStr += position.ToString();
+        logAdder(completeStr);
+    }
+
     static public void SaveFile()
     {
         for (int i = 0; i < 20; i++)
             playerName += (int)Random.Range(0, 9);
+        
         Debug.Log("FileSave!");
         saveLog();
     }
@@ -70,7 +80,7 @@ public class LogManager : MonoBehaviour{
         string completeStr = time + "," + lt.ToString() + "," + duration.ToString() +","+ region;
 
         //Debug.Log(completeStr);
-
+        
         logAdder(completeStr);
         
     }
@@ -100,7 +110,6 @@ public class LogManager : MonoBehaviour{
 
     static public void saveLog()
     {
-        
         StreamWriter sw = new StreamWriter(logFilePath + "/" + playerName + ".csv",true,System.Text.Encoding.GetEncoding("utf-8"));
         sw.Write(logInfo);
         sw.Close();

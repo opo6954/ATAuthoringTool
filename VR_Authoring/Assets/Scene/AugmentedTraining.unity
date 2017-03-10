@@ -985,7 +985,7 @@ Prefab:
     - target: {fileID: 20038112318183564, guid: afeed2b26cf47174ea2957f3088c9161,
         type: 2}
       propertyPath: field of view
-      value: 2.9231e-41
+      value: 1.5e-44
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: afeed2b26cf47174ea2957f3088c9161, type: 2}
@@ -2066,7 +2066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &594550735
 Transform:
   m_ObjectHideFlags: 0
@@ -6627,7 +6627,7 @@ MonoBehaviour:
   myo: {fileID: 1653778146}
   currentGesture: 0
   streamLength: 10
-  blockTerm: 10
+  blockTerm: 20
   isLeft: 0
   isRight: 0
   logManager: {fileID: 590550239}
@@ -14687,7 +14687,7 @@ MonoBehaviour:
   myo: {fileID: 1653778147}
   currentGesture: 0
   streamLength: 10
-  blockTerm: 10
+  blockTerm: 20
   isLeft: 0
   isRight: 0
   logManager: {fileID: 590550239}
@@ -18360,7 +18360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1689979043
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20140,7 +20140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2120722508
 Transform:
   m_ObjectHideFlags: 0

@@ -516,6 +516,7 @@
     <Compile Include="Assets\Script\Interface\GazeLogger.cs" />
     <Compile Include="Assets\Script\Interface\GazeMagnifier.cs" />
     <Compile Include="Assets\Script\Interface\GestureInput.cs" />
+    <Compile Include="Assets\Script\Interface\GestureManager.cs" />
     <Compile Include="Assets\Script\Interface\InteractibleManager.cs" />
     <Compile Include="Assets\Script\Interface\MyoGesture.cs" />
     <Compile Include="Assets\Script\Interface\MyoInput.cs" />

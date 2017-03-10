@@ -5,6 +5,7 @@ using HoloToolkit.Unity.InputModule;
 using UnityEngine.VR.WSA;
 using UnityEngine.VR.WSA.Persistence;
 using UnityEngine;
+using HoloToolkit.Unity;
 
 namespace HoloToolkit.Unity.SpatialMapping
 {
@@ -21,6 +22,7 @@ namespace HoloToolkit.Unity.SpatialMapping
 
     public class TapToPlace : MonoBehaviour, IInputClickHandler
     {
+        
         [Tooltip("Supply a friendly name for the anchor as the key name for the WorldAnchorStore.")]
         public string SavedAnchorFriendlyName = "SavedAnchorFriendlyName";
 
@@ -122,7 +124,6 @@ namespace HoloToolkit.Unity.SpatialMapping
             {
                 foreach(Transform child in GameObject.Find("InteractableObject").transform)
                 {
-                    Debug.Log(child.name + "\t" + this.transform.name);
                     if(!child.name.Equals(this.transform.name))
                     {
                         child.GetComponent<TapToPlace>().IsEditing = false;
@@ -167,6 +168,11 @@ namespace HoloToolkit.Unity.SpatialMapping
             ChangeState();
         }
 
+        public virtual void OnSelect()
+        {
+            ChangeState();
+        }
+
         public void ChangeState()
         {
             //Debug.Log("ChangeState");
@@ -199,7 +205,10 @@ namespace HoloToolkit.Unity.SpatialMapping
                 }
             }
         }
-
+        private void OnDestroy()
+        {
+            LogManager.SavePosition(transform.name, transform.position);
+        }
         private void DetermineParent()
         {
             if (ParentGameObjectToPlace == null)

@@ -10,6 +10,13 @@ public class MyoInputManager:MonoBehaviour{
     public MyoGesture myoGes2;
     public int numOfMyos;
 
+    public void Vibrate()
+    {
+        if(myoInputLeft.isReady)
+            myoInputLeft.myo.myo.Vibrate(VibrationType.Short);
+        if (myoInputRight.isReady)
+            myoInputRight.myo.myo.Vibrate(VibrationType.Short);
+    }
     public void Start()
     {
         numOfMyos = 0;

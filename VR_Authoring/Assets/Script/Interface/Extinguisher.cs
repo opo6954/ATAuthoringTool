@@ -55,6 +55,7 @@ public class Extinguisher: MonoBehaviour {
         if (!isReady)
             return;
         smokeEffect.GetComponent<ParticleSystem>().Play();
+        myoManager.Vibrate();
         if (!smokeSound.active)
             smokeSound.SetActive(true);
     }

@@ -12,6 +12,7 @@ public class ModeSelector : MonoBehaviour {
     public EnvironmentManager envManager;
     public TrainingManager trainManager;
 
+    bool isEnabled = false;
     public int pauseCountOffset = 5;
     public Mode currentMode = Mode.NONE;
     public Mode previousMode = Mode.NONE;
@@ -36,12 +37,16 @@ public class ModeSelector : MonoBehaviour {
 
     void GetGesture()
     {
-        if (myoInputManager.myoInputLeft.Cancel() || myoInputManager.myoInputRight.Cancel())
+        if (myoInputManager.myoInputLeft.Next() || myoInputManager.myoInputRight.Next())
         {
+            currentMode = Mode.TRAINING;
+            isEnabled = false;
+            /*
             ShowMenu(false);
             pauseCountLeft = 0;
             pauseCountRight = 0;
             return;
+            */
         }
         if (currentMode != Mode.NONE)
             return;
@@ -55,7 +60,9 @@ public class ModeSelector : MonoBehaviour {
         // show the menu for the gesture with two hands
         if (myoInputManager.myoInputLeft.Pause() || myoInputManager.myoInputRight.Pause())
         {
-            ShowMenu(true);
+            //ShowMenu(true);
+            currentMode = Mode.EDITING;
+            isEnabled = false;
         }
     }
 	
@@ -103,7 +110,10 @@ public class ModeSelector : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        GetGesture();
+        if (isEnabled)
+        {
+            GetGesture();
+        }
         AdjustMode();
     }
 }

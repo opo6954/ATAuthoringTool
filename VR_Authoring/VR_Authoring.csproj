@@ -93,9 +93,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CorrectWrongSound.cs" />
-    <Compile Include="Assets\DebugAuthoringTools.cs" />
-    <Compile Include="Assets\GesturesInputManager.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\ColorPicker\GazeableColorPicker.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\DeleteLine.cs" />
     <Compile Include="Assets\HoloToolkit-Examples\GazeRuler\Scripts\IGeometry.cs" />
@@ -493,7 +490,6 @@
     <Compile Include="Assets\Myo\Scripts\Myo.NET\libmyo.cs" />
     <Compile Include="Assets\Myo\Scripts\ThalmicHub.cs" />
     <Compile Include="Assets\Myo\Scripts\ThalmicMyo.cs" />
-    <Compile Include="Assets\NarrativeSoundManager.cs" />
     <Compile Include="Assets\OfficeMegaKit\Office Tile Kit\Scripts\SimpleDoorTrigger.cs" />
     <Compile Include="Assets\OfficeMegaKit\OfficeBathroomKit\MirrorAsset\MirrorReflection.cs" />
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\BackgroundForm.cs" />
@@ -507,10 +503,13 @@
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\UIEffect_AnswerSheet.cs" />
     <Compile Include="Assets\Resources\UserInterface\DefaultUI\Script\UIEffect_child.cs" />
     <Compile Include="Assets\Resources\UserInterface\UIModuleTemplate.cs" />
+    <Compile Include="Assets\Script\CorrectWrongSound.cs" />
+    <Compile Include="Assets\Script\DebugAuthoringTools.cs" />
     <Compile Include="Assets\Script\Effect\FireEffect.cs" />
     <Compile Include="Assets\Script\Effect\ParticleManager.cs" />
     <Compile Include="Assets\Script\Environment\EnvironmentManager.cs" />
     <Compile Include="Assets\Script\Environment\GazeChecker.cs" />
+    <Compile Include="Assets\Script\GesturesInputManager.cs" />
     <Compile Include="Assets\Script\Interface\Control_objectify.cs" />
     <Compile Include="Assets\Script\Interface\Extinguisher.cs" />
     <Compile Include="Assets\Script\Interface\GazeLogger.cs" />
@@ -525,6 +524,7 @@
     <Compile Include="Assets\Script\Misc\Logger.cs" />
     <Compile Include="Assets\Script\Misc\ModeSelector.cs" />
     <Compile Include="Assets\Script\Misc\TrainingManager.cs" />
+    <Compile Include="Assets\Script\NarrativeSoundManager.cs" />
     <Compile Include="Assets\Script\Player\FPCUpdater.cs" />
     <Compile Include="Assets\Script\Player\PlayerTemplate.cs" />
     <Compile Include="Assets\Script\Scenario\FireExtinguishScenario.cs" />

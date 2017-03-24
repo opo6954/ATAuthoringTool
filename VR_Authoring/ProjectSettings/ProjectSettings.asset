@@ -236,8 +236,9 @@ PlayerSettings:
     m_Devices:
     - Oculus
   - m_BuildTarget: Metro
-    m_Enabled: 0
-    m_Devices: []
+    m_Enabled: 1
+    m_Devices:
+    - HoloLens
   - m_BuildTarget: N3DS
     m_Enabled: 0
     m_Devices: []
@@ -583,7 +584,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: unityExtensionTest
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -591,7 +592,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: unityExtensionTest
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: unityExtensionTest
   metroCommandLineArgsFile: 
   metroTileShowName: 0
   metroMediumTileShowName: 0
@@ -603,7 +604,33 @@ PlayerSettings:
   metroSplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628,
     a: 1}
   metroSplashScreenUseBackgroundColor: 1
-  platformCapabilities: {}
+  platformCapabilities:
+    WindowsStoreApps:
+      AllJoyn: False
+      BlockedChatMessages: False
+      Bluetooth: False
+      Chat: False
+      CodeGeneration: False
+      EnterpriseAuthentication: False
+      HumanInterfaceDevice: False
+      InputInjectionBrokered: False
+      InternetClient: True
+      InternetClientServer: True
+      Location: False
+      Microphone: True
+      MusicLibrary: False
+      Objects3D: False
+      PhoneCall: False
+      PicturesLibrary: False
+      PrivateNetworkClientServer: True
+      Proximity: False
+      RemovableStorage: False
+      SharedUserCertificates: False
+      SpatialPerception: True
+      UserAccountInformation: False
+      VideosLibrary: False
+      VoipCall: False
+      WebCam: False
   metroFTAName: 
   metroFTAFileTypes: []
   metroProtocolName: 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VR;
 
 public class PlayerTemplate : MonoBehaviour {
 
@@ -135,22 +136,14 @@ public class PlayerTemplate : MonoBehaviour {
     {
         myUIInfo = uiModule;
     }
-
-	//util function
-
-	public Camera getCamera()
-	{
-		return transform.GetChild (0).GetChild (0).GetComponent<Camera> ();
-	}
+    
 
 	// Use this for initialization
 	void Start () {
-
-		myWalkSpeed = transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed;
+        canvas_ui = GameObject.Find("Canvas_UI");
 
         taskList = new Dictionary<string, TaskModuleTemplate>();
-        canvas_ui = GameObject.Find("Canvas_UI");
-        
+                
 	}
 
 	// Update is called once per frame

@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 public class ApproachObjState : StateModuleTemplate {
 
-	public ApproachObjState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public ApproachObjState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 		
 	} 
@@ -22,7 +22,9 @@ public class ApproachObjState : StateModuleTemplate {
 	public override void setProperty (Dictionary<string, object> properties)
 	{
 		addProperty ("Patrol_Contents", properties ["Patrol_Contents"]);
-
+        if (properties.ContainsKey("Approach_ShouldNear"))
+            addProperty("Approach_ShouldNear", properties["Approach_ShouldNear"]);
+        
 		if(properties.ContainsKey("Approach_Distance"))
 			addProperty ("Approach_Distance", properties ["Approach_Distance"]);
 
@@ -50,7 +52,7 @@ public class ApproachObjState : StateModuleTemplate {
         }
         else
         {
-            myUIInfo.GetComponent<DefaultForm>().changeCurrTaskInfo(getProperty<string>("Patrol_Contents"));
+            //myUIInfo.GetComponent<DefaultForm>().changeCurrTaskInfo(getProperty<string>("Patrol_Contents"));
             
         }
 
@@ -65,8 +67,12 @@ public class ApproachObjState : StateModuleTemplate {
     {
         if (isContainObject("Approach_to_Object") == true)
         {
-			if (amISeeObject(getObject<GameObject>("Approach_to_Object"), getProperty<float>("Approach_Angle"), getProperty<float>("Approach_Distance")) == true)
+			if (amISeeObject(getObject<GameObject>("Approach_to_Object"), getProperty<float>("Approach_Angle"), getProperty<float>("Approach_Distance"), getProperty<string>("Approach_ShouldNear")) == true)
+            {
+                GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
                 return true;
+            }
+                
         }
         else
         {

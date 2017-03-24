@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class ScenarioController : MonoBehaviour{
 	
 
-	private List<ScenarioModuleTemplate> scenarioSeq = new List<ScenarioModuleTemplate> ();
+	public List<ScenarioModuleTemplate> scenarioSeq = new List<ScenarioModuleTemplate> ();
 
 
     //player info...

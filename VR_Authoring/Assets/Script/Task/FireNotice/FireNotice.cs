@@ -48,10 +48,10 @@ public class FireNotice : TaskModuleTemplate  {
         
         base.TaskStart();
 
-        myUIInfo.loadUIPrefab("DefaultForm");
+        //myUIInfo.loadUIPrefab("DefaultForm");
         
 
-        defaultForm = myUIInfo.getUIPrefab("DefaultForm");
+        //defaultForm = myUIInfo.getUIPrefab("DefaultForm");
 
 
 
@@ -62,12 +62,12 @@ public class FireNotice : TaskModuleTemplate  {
         
 
         //아마 추후에 이 부분도 저작할 수 있을 듯 합니다
-		ApproachObjState a = new ApproachObjState(this, defaultForm);
+		ApproachObjState a = new ApproachObjState(this);
 		a.setProperty (getProperties ());
 		a.setObject (getObjects ());
 
 		// ,getProperty<string>("Patrol_Contents"), getObject<GameObject>("WakeUpObject"));
-        ButtonPressState b = new ButtonPressState(this, defaultForm);
+        ButtonPressState b = new ButtonPressState(this);
 		b.setProperty (getProperties ());
 		b.setObject (getObjects ());
 

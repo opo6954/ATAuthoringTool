@@ -30,9 +30,6 @@ public class FireReport : TaskModuleTemplate
 	GameObject defaultForm = null;
 	GameObject questionForm = null;
 
-
-
-
     
     public override void TaskInit()
     {
@@ -54,16 +51,16 @@ public class FireReport : TaskModuleTemplate
     {
         base.TaskStart();
 
-		myUIInfo.loadUIPrefab ("DefaultForm");
-		myUIInfo.loadUIPrefab ("ReportForm");
+		//myUIInfo.loadUIPrefab ("DefaultForm");
+		//myUIInfo.loadUIPrefab ("ReportForm");
 
-		defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
-		questionForm = myUIInfo.getUIPrefab ("ReportForm");
+		//defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
+		//questionForm = myUIInfo.getUIPrefab ("ReportForm");
 		 
-		ApproachObjState a = new ApproachObjState (this, defaultForm);
+		ApproachObjState a = new ApproachObjState (this);
 		a.setProperty (getProperties ());
 		a.setObject (getObjects ());
-		QuestioningState b = new QuestioningState (this, questionForm);
+		QuestioningState b = new QuestioningState (this);
 		b.setProperty (getProperties ());
 		b.setObject (getObjects ());
 
@@ -72,7 +69,7 @@ public class FireReport : TaskModuleTemplate
 
 		//questionForm.GetComponent<ReportForm> ().turnOnOffMyPart (false);
 
-		questionForm.gameObject.SetActive (false);
+		//questionForm.gameObject.SetActive (false);
     }
 
     public override void TaskFinish()

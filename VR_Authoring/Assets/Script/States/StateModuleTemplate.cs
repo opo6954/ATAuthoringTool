@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using HoloToolkit.Unity.InputModule;
 /*
  * State module을 위한 template, State는 UIForm과 1대1로 매칭될 수 있습니다. 
  * Init, Process, Goal, Res로 구성
@@ -19,14 +19,12 @@ using System.Collections.Generic;
  * */
 
 public class StateModuleTemplate {
-
+    public MyoInputManager mim;
+    public GesturesInput holoGesture;
     private bool isStateStart = false;
     private bool isStateDoing = false;
     public bool isStateEnd = false;
 
-    
-
-    protected GameObject myUIInfo;//선택된 UI 종류
     protected TaskModuleTemplate myModuleInfo;//나의 윗단인 moduleINfo임
     protected string myStateName;
     
@@ -96,23 +94,7 @@ public class StateModuleTemplate {
             return true;
         return false;
     }
-
-
-    ///////////State에서의 Ui 관리
-
-	public void setUI(GameObject _UIModule)
-    {
-        myUIInfo = _UIModule;
-    }
-	public void turnOnMyUI()
-	{
-		myUIInfo.gameObject.SetActive (true);
-	}
-	public void turnOffMyUI()
-	{
-		myUIInfo.gameObject.SetActive (false);
-	}
-
+        
     public void setMyPlayer(PlayerTemplate player)
     {
         myPlayerInfo = player;
@@ -133,49 +115,34 @@ public class StateModuleTemplate {
 
     ///////////////Utility 함수들
     //특정 object에 가까이 가면 true 리턴, 아닐 시 false 리턴
-    public bool amISeeObject(GameObject target, float shout_angle = 3.0f, float shout_range = 5.0f)
+    public bool amISeeObject(GameObject target, float shout_angle = 0.5f, float shout_range = 5.0f, string shouldNear = "False")
     {
+        bool isLooking = false;
+        bool isNear = false;
+        if ((target.transform.GetChild(0).GetComponent("GazeLogger") as GazeLogger) != null)
+        {
+            if (target.transform.GetChild(0).GetComponent<GazeLogger>().isGazed)
+                isLooking = true;
+        }
+
         float distance = (target.transform.position - myPosition.position).magnitude;
-        float angle = Vector3.Dot((target.transform.position - myPosition.position).normalized, Camera.main.transform.forward.normalized);
+        //Debug.Log("Distance : " + distance);
+        //float angle = Vector3.Dot((target.transform.position - myPosition.position).normalized, Camera.main.transform.forward.normalized);
 		if (shout_range <= 0) {
-			shout_range = 5.0f;
-		}
-		if (shout_angle <= 0) {
-			shout_angle = 3.0f;
+			shout_range = 0.5f;
 		}
 
-
-        if (distance < shout_range && angle < shout_angle)
+        if(distance < shout_range)
         {
-			
-            return true;
+            isNear = true;
         }
-        return false;
-    }
-
-    //1인칭 화면 잠구기, 움직임 X, 시야 변경 X
-    public void lockFPSScreen(bool enableLock)
-    {
-        if (enableLock == true)
-        {
-            setActiveGameComponent( myPlayerInfo.transform.GetChild(0).name, "FirstPersonController", false);
-        }
+        
+        if (shouldNear.Equals("True"))
+            return isNear && isLooking;
         else
-        {
-            setActiveGameComponent(myPlayerInfo.transform.GetChild(0).name, "FirstPersonController", true);
-        }
+            return isNear || isLooking;
+        
     }
-	//1인칭 움직임 잠구기, 움직임 X, 시야 변경 O
-	public void lockFPSmoveScreen(bool enableLock)
-	{
-		if (enableLock == true) {
-
-			myPlayerInfo.transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed = 0.0f;
-
-		} else {
-			myPlayerInfo.transform.GetChild (0).transform.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController> ().m_WalkSpeed = myPlayerInfo.myWalkSpeed;
-		}
-	}
 
     //주어진 gameObject의 component를 끄고 켜기
     public static void setActiveGameComponent(string gameObjectName, string gameComponentName, bool value)
@@ -185,7 +152,16 @@ public class StateModuleTemplate {
     }
 
     //입력함수
+    public bool isHoloGestureTapped()
+    {
+        return holoGesture.currentGesture == GesturesInput.Gesture.TAP;
+    }
 
+    public void InvalidateHoloGesture()
+    {
+        holoGesture.currentGesture = GesturesInput.Gesture.NONE;
+    }
+    
     public bool isKeyDown(string keyName)
     {
         bool isKeyPressed = false;
@@ -207,7 +183,6 @@ public class StateModuleTemplate {
         return isKeyPressed;
     }
 
-
 	/*
 	 * public PlaySoundsState(TaskModuleTemplate _myModule, GameObject _UI)
 	{
@@ -222,12 +197,11 @@ public class StateModuleTemplate {
 	/// 
 	//생성자
 
-	public StateModuleTemplate(TaskModuleTemplate _myModule, GameObject _UI)
+	public StateModuleTemplate(TaskModuleTemplate _myModule)
 	{
 		setMyModule(_myModule);
 		setMyPosition(myModuleInfo.getMyPosition());
 		setMyPlayer(myModuleInfo.getMyPlayer());
-		setUI(_UI);
 	}
 
 
@@ -276,7 +250,8 @@ public class StateModuleTemplate {
     public virtual void Init()
     {
         Debug.Log(myStateName +  " state 시작");
-		turnOnMyUI ();
+        holoGesture = GameObject.Find("GesturesInput_Hololens").GetComponent<GesturesInput>();
+		//turnOnMyUI ();
     }
     //Goal이 false일때 계속 수행하는 작업
     public virtual void Process()
@@ -292,7 +267,7 @@ public class StateModuleTemplate {
     public virtual void Res()
     {
         Debug.Log(myStateName + " state 종료");
-		turnOffMyUI ();
+		//turnOffMyUI ();
     }
 
 }

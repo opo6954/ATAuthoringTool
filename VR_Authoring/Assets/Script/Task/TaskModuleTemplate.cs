@@ -17,7 +17,7 @@ public class TaskModuleTemplate{
 
      
     protected PlayerTemplate myPlayerInfo;//선택된 player 종류
-    protected UIModuleTemplate myUIInfo;//선택된 UI 종류
+    //protected UIModuleTemplate myUIInfo;//선택된 UI 종류
     
     public string myTaskName;//customized name
 	public string myTaskType;//type of task: pre-defined
@@ -28,14 +28,27 @@ public class TaskModuleTemplate{
     
     private bool isTaskStart;
     private bool isTaskEnd;
-    private bool isTaskDoing;
+    public bool isTaskDoing;
 
 	private int myTaskIdx = 0;//
 
-    protected int stateIdx = 0;
+    public int stateIdx = 0;
 
-	//task idx 설정 및 가져오기
-	public void setMyTaskIdx(int idx)
+    public string prevTaskName = "";//이전 task
+    public string nextTaskName = "";//다음 task
+
+
+    private Dictionary<string, object> propertyGroup = new Dictionary<string, object>();
+    private Dictionary<string, object> objectGroup = new Dictionary<string, object>();
+
+    //각 task에서 필요한 property 및 object 이름 list
+    public string[] propertiesList;
+    public string[] objectsList;
+
+    public List<StateModuleTemplate> myStateList = new List<StateModuleTemplate>();
+
+    //task idx 설정 및 가져오기
+    public void setMyTaskIdx(int idx)
 	{
 		myTaskIdx = idx;
 	}
@@ -65,20 +78,7 @@ public class TaskModuleTemplate{
      * 시작하는 trigger: isTaskStart --> true로 설정
      * 끝나는 trigger: isTaskDoing --> true로 설정 이거만 하면 됩니다.
      */
-
-    
-    public string prevTaskName="";//이전 task
-    public string nextTaskName="";//다음 task
-    
-
-    private Dictionary<string, object> propertyGroup = new Dictionary<string, object>();
-    private Dictionary<string, object> objectGroup = new Dictionary<string, object>();
-
-	//각 task에서 필요한 property 및 object 이름 list
-	public string[] propertiesList;
-	public string[] objectsList;
-
-    protected List<StateModuleTemplate> myStateList = new List<StateModuleTemplate>();
+     
 
     //property관련 함수
 	//Property, Obj 설정 함수
@@ -173,7 +173,7 @@ public class TaskModuleTemplate{
 
     public void setMyUI(UIModuleTemplate uimodule)
     {
-        myUIInfo = uimodule;
+        //myUIInfo = uimodule;
     }
 
     public void setMyPosition(Transform _position)
@@ -186,10 +186,7 @@ public class TaskModuleTemplate{
         return myPosition;
     }
 
-    public GameObject getBackgroundUI()
-    {
-        return myUIInfo.getUIPrefab("BackgroundForm");
-    }
+    
 
 
   
@@ -226,7 +223,7 @@ public class TaskModuleTemplate{
         for (int i = 0; i < myStateList.Count; i++)
         {
             myStateList[i].setMyPosition(getMyPosition());
-            myStateList[i].turnOffMyUI();
+            //myStateList[i].turnOffMyUI();
             
             
         }
@@ -274,14 +271,7 @@ public class TaskModuleTemplate{
         {
             Debug.Log("다음 task가 존재하지 않습니다 마지막 task로 간주합니다.");
         }
-
-
-
-
-		myUIInfo.deleteUIAll ();
-
-
-
+        
 
     }
 

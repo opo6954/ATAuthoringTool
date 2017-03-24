@@ -15,7 +15,7 @@ public class ScenarioModuleTemplate {
 	private int myScenarioIdx;
 	
 	//task seq가 저장된 task list
-	private List<TaskModuleTemplate> taskList = new List<TaskModuleTemplate>();
+	public List<TaskModuleTemplate> taskList = new List<TaskModuleTemplate>();
 
 	//sceanrio의 이름
 	private string myScenarioName="";
@@ -103,11 +103,10 @@ public class ScenarioModuleTemplate {
 
 	public void setMyParent(ScenarioController _myParent)
 	{
-        
 		myParent = _myParent;
-        myPosition = _myParent.transform.GetChild(0).transform;
-
-	}
+        //myPosition = _myParent.transform.GetChild(0).transform;
+        myPosition = _myParent.transform.parent;
+    }
 
     public ScenarioController getMyParent()
     {
@@ -115,7 +114,12 @@ public class ScenarioModuleTemplate {
     }
 
     
-
+    void FinishScenario()
+    {
+        // WARNING : hard coding
+        GameObject.Find("FloatingUI_Timed").GetComponent<TimedBillText>().ShowText("화재 훈련이 성공적으로 끝났습니다.");
+        GameObject.Find("ModeSelector").GetComponent<ModeSelector>().SetMode(ModeSelector.Mode.NONE);
+    }
 
 	//build 관련
 
@@ -126,8 +130,8 @@ public class ScenarioModuleTemplate {
 			if (taskList.Count > taskIdx) {
 				taskList [taskIdx].setStartTrigger ();//다음 task를 실행하기
 			} else {
-				Debug.Log ("No Next Task Found");
-
+				//Debug.Log ("No Next Task Found");
+                FinishScenario();
 				myParent.triggerScenario (myScenarioIdx + 1);
 			}
 		} else if (taskIdx == 0) {

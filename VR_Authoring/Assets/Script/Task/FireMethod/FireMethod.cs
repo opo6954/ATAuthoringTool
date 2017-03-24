@@ -52,37 +52,40 @@ public class FireMethod : TaskModuleTemplate {
 	{
 		base.TaskStart ();
 
-		myUIInfo.loadUIPrefab ("DefaultForm");
-		myUIInfo.loadUIPrefab ("MethodForm");
+		//myUIInfo.loadUIPrefab ("DefaultForm");
+		//myUIInfo.loadUIPrefab ("MethodForm");
 
-		defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
-		methodForm = myUIInfo.getUIPrefab ("MethodForm");
+		//defaultForm = myUIInfo.getUIPrefab ("DefaultForm");
+		//methodForm = myUIInfo.getUIPrefab ("MethodForm");
 
-		ApproachObjState a = new ApproachObjState (this, defaultForm);
+		ApproachObjState a = new ApproachObjState (this);
 		a.setProperty (getProperties ());
 		a.setObject (getObjects ());
 
-		ButtonPressState b = new ButtonPressState (this, defaultForm);
+		ButtonPressState b = new ButtonPressState (this);
 		b.setProperty (getProperties ());
 		b.setObject (getObjects ());
 
 
-		MethodLearnState c = new MethodLearnState (this, methodForm);
+		MethodLearnState c = new MethodLearnState (this);
 		c.setProperty (getProperties ());
 		c.setObject (getObjects ());
 
+        ExtinguishState d = new ExtinguishState(this);
+        d.setProperty(getProperties());
+        d.setObject(getObjects());
 
 
 
 
-
-		myStateList.Add (a); 
-		myStateList.Add (b);
+        myStateList.Add (a); 
 		myStateList.Add (c);
+		myStateList.Add (b);
+        myStateList.Add(d);
 
 
-		for (int i = 0; i < myStateList.Count; i++) {
-			myStateList [i].turnOffMyUI ();
+        for (int i = 0; i < myStateList.Count; i++) {
+			//myStateList [i].turnOffMyUI ();
 		}
 
 
@@ -99,7 +102,7 @@ public class FireMethod : TaskModuleTemplate {
 		GameObject.Destroy (defaultForm);
 		GameObject.Destroy (methodForm);
 
-		myUIInfo.deleteUIPrefab ("DefaultForm");
-		myUIInfo.deleteUIPrefab ("MethodForm");
+		//myUIInfo.deleteUIPrefab ("DefaultForm");
+		//myUIInfo.deleteUIPrefab ("MethodForm");
 	}
 }

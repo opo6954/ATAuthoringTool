@@ -37,7 +37,7 @@ public class QuestioningState : StateModuleTemplate {
 	string moveButton="";
 
 
-	public QuestioningState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public QuestioningState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 
 	}
@@ -46,7 +46,8 @@ public class QuestioningState : StateModuleTemplate {
 
 	public override void setProperty (System.Collections.Generic.Dictionary<string, object> properties)
 	{
-		addProperty ("Report_Count", properties["Report_Count"]);
+        addProperty("Notice_Contents", properties["Notice_Contents"]);
+        addProperty ("Report_Count", properties["Report_Count"]);
 		addProperty ("Report_Question", properties["Report_Question"]);
 		addProperty ("Report_Answer", properties["Report_Answer"]);
 		addProperty ("Report_TrueAns", properties["Report_TrueAns"]);
@@ -67,12 +68,10 @@ public class QuestioningState : StateModuleTemplate {
 	public override void Init ()
 	{
 		myStateName = "문제 풀기 State";
-		backgroundUI = myModuleInfo.getBackgroundUI ();//추가적인 버튼 및 맞는지 틀렸는지 알려주기 위해 backgroundUI 필요함
+		//backgroundUI = myModuleInfo.getBackgroundUI ();//추가적인 버튼 및 맞는지 틀렸는지 알려주기 위해 backgroundUI 필요함
 
 		base.Init ();
-
-		lockFPSScreen (true);
-
+        
 		setQuestions ();
 		setAnswerSheet ();
 
@@ -83,39 +82,46 @@ public class QuestioningState : StateModuleTemplate {
 		base.Process ();
 
 
-		getKeyInput ();
+		//getKeyInput ();
 	}
 
 	public override bool Goal ()
 	{
+        // WARNING : hard coding
+        if (isHoloGestureTapped() && GameObject.Find("M_ShipPhone").GetComponent<GazeLogger>().isGazed)
+        {
+            GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
+            return true;
+        }
+        else
+            return false;
+        
+        /*
 		string[] questions = getProperty<string[]> ("Report_Question");
 		if (correctNum == questions.Length) {
 			return true;
 		} else
 			return false;
+        */
 
-
-	}
+    }
 
 	public override void Res ()
 	{
 		base.Res ();
-		lockFPSScreen (false);
 	}
 
 	//문제 설정함수
 	public void setQuestions()
 	{
 		string[] queArray = getProperty<string[]> ("Report_Question");
-
-		myUIInfo.GetComponent<ReportForm> ().setQuestionTxt (queArray[currQuesIdx]);
+        
 	}
 	//답안지 설정 함수
 	public void setAnswerSheet()
 	{
 		
 		string[][] ansArray = getProperty<string[][]> ("Report_Answer");
-		myUIInfo.GetComponent<ReportForm> ().setAnsTxt (ansArray[currQuesIdx]);
 
 		currAnsNum = ansArray [currQuesIdx].Length;
 
@@ -124,18 +130,16 @@ public class QuestioningState : StateModuleTemplate {
 	//키 입력 받는 함수 
 	public void getKeyInput()
 	{
-		//x버튼: 답 결정
+        //x버튼: 답 결정
 
-		myUIInfo.GetComponent<ReportForm> ().setSelectedTxt (currAnsIdx);
-
-		if (isKeyDown (selectButton) == true) {
-			int[] trueAns = getProperty<int[]> ("Report_TrueAns");
+        //if (isKeyDown (selectButton) == true) {
+        if (isHoloGestureTapped()) { 
+            int[] trueAns = getProperty<int[]> ("Report_TrueAns");
 
 			if (trueAns [currQuesIdx] == currAnsIdx) {//정답 맞음
 				correctNum = correctNum + 1;
 				currQuesIdx = currQuesIdx + 1;
 				currAnsIdx = 0;
-				myUIInfo.GetComponent<ReportForm> ().setSelectedTxt (currAnsIdx);
 
 				if (currQuesIdx < trueAns.Length) {
 
@@ -152,10 +156,11 @@ public class QuestioningState : StateModuleTemplate {
 
 
 			}
-			//addProperty ("Report_TrueAns", trueAnswer);
-		}
-		//y버튼: 선택 답 이동
-		if (isKeyDown (moveButton) == true) {
+        //addProperty ("Report_TrueAns", trueAnswer);
+    }
+        //y버튼: 선택 답 이동
+        if (isHoloGestureTapped()) { 
+		//if (isKeyDown (moveButton) == true) {
 			currAnsIdx = currAnsIdx + 1;
 			if (currAnsIdx >= currAnsNum) {
 				//다시 처음으로 reset

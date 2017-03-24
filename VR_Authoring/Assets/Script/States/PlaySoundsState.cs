@@ -14,7 +14,7 @@ using System.Collections;
 public class PlaySoundsState : StateModuleTemplate {
 
 
-	public PlaySoundsState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public PlaySoundsState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 
 	}
@@ -46,7 +46,7 @@ public class PlaySoundsState : StateModuleTemplate {
 			AudioSource audioSource = getObject<GameObject> ("Sound_from_Object").AddComponent<AudioSource>();
 
 			audioSource.clip = Resources.Load ("Sound/" + getProperty<string> ("SoundName")) as AudioClip;
-
+            audioSource.volume = 0.1f;
 
 
 
@@ -81,7 +81,8 @@ public class PlaySoundsState : StateModuleTemplate {
 
 	public override bool Goal ()
 	{
-		return true;
+        GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
+        return true;
 	}
 	
 }

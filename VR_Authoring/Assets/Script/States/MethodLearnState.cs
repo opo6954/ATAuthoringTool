@@ -10,8 +10,11 @@ using System.Collections;
 
 public class MethodLearnState : StateModuleTemplate {
 
-	//아마 추가적인 information이 들어가겠지?
-
+    //아마 추가적인 information이 들어가겠지?
+    GameObject fireExtinguisherModel;
+    TimedBillText floatingText;
+    int currentState = 0;
+    bool completed = false;
 
 	float originHeight;
 
@@ -19,7 +22,7 @@ public class MethodLearnState : StateModuleTemplate {
 
 	Transform[] objParts;
 
-	GameObject backgroundUI;//background UI instance
+	//GameObject backgroundUI;//background UI instance
 	GameObject cloneObj;//clone obj
 
 	Material[] partObjectify;
@@ -42,15 +45,15 @@ public class MethodLearnState : StateModuleTemplate {
 
 
 
-	public MethodLearnState(TaskModuleTemplate _myModule, GameObject _UI) : base(_myModule, _UI)
+	public MethodLearnState(TaskModuleTemplate _myModule) : base(_myModule)
 	{
 
 	}
 
 	public override void setProperty (System.Collections.Generic.Dictionary<string, object> properties)
 	{
-		
-		addProperty ("PartCount", properties ["PartCount"]);//활성화된 부분 개수
+        addProperty("Notice_Contents", properties["Notice_Contents"]);
+        addProperty ("PartCount", properties ["PartCount"]);//활성화된 부분 개수
 		addProperty("isVideo", properties["isVideo"]);//Video 여부
 		addProperty ("VideoName", properties ["VideoName"]);//video 이름
 		addProperty("PartAnswer", properties["PartAnswer"]);//part 선택 순서
@@ -96,6 +99,7 @@ public class MethodLearnState : StateModuleTemplate {
 	public void setInitPosObj(GameObject cloneObj)
 	{
 		//위치 조절
+        /*
 		Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2,0));
 		//Debug.DrawRay (ray.origin, ray.direction * 1000, Color.yellow);
 
@@ -105,6 +109,7 @@ public class MethodLearnState : StateModuleTemplate {
 		objPosition.y = objPosition.y - cloneObj.GetComponent<MeshFilter> ().mesh.bounds.max.z / 100.0f;
 
 		cloneObj.transform.localPosition = objPosition;
+        */
 	}
 
 	public void setInitRotObj(GameObject cloneObj)
@@ -125,71 +130,35 @@ public class MethodLearnState : StateModuleTemplate {
 	public override void Init ()
 	{
 		myStateName = "Method 숙지 - 3D 모델 인식 및 영상 교육";
-		base.Init ();
+        Debug.Log(myStateName);
 
-
-		backgroundUI = myModuleInfo.getBackgroundUI ();//backgroundUI 가져오기
-
-
-		lockFPSmoveScreen (true);
-
-
-
-		cloneObj = GameObject.Instantiate (getObject<GameObject> ("Interaction_to_Object"));
-
-		getObject<GameObject> ("Interaction_to_Object").SetActive (false);//원래의 obj는 false로 숨기자
-
-		cloneObj.transform.SetParent(myPlayerInfo.transform);
-
-
-		objParts = new Transform[getProperty<int> ("PartCount")];
-		partObjectify = new Material[getProperty<int> ("PartCount")];
-
-		partSelectObjectify = Resources.Load ("Shader/Edge_White", typeof(Material)) as Material;
-
-		for (int i = 0; i < getProperty<int> ("PartCount"); i++) {
-			objParts [i] = cloneObj.transform.GetChild (i);
-			objParts [i].GetComponent<MeshRenderer> ().enabled = true;
-
-			partObjectify [i] = objParts [i].GetComponent<MeshRenderer> ().materials [0];
-
-			}
-
-		setInitScaleObj (cloneObj);
-		setInitPosObj (cloneObj);
-		setInitRotObj (cloneObj);
-
-        int[] videoName = getProperty<int[]>("VideoName");
-
-        Debug.Log(videoName[0]);
-
-
-        string[] videoNameStr = new string[videoName.Length];
-
-        for (int i = 0; i < videoNameStr.Length; i++)
-        {
-            videoNameStr[i] = videoName[i].ToString();
-        }
-
-        
-
-
-        
-        myUIInfo.GetComponent<MethodForm> ().setVideoName (videoNameStr);
+        base.Init ();
+        // WARNING : hard coding
+        fireExtinguisherModel = GameObject.Find("M_FireExtinguisher");
+        enableAllParts();
+        floatingText = GameObject.Find("FloatingUI_Timed").GetComponent<TimedBillText>();
 
 	}
 
+    void enableAllParts()
+    {
+        foreach (Transform child in fireExtinguisherModel.transform)
+        {
+            child.GetComponent<GazeMagnifier>().isEnabled = true;
+        }
+    }
 
 	/////////////////////////////////////////PROCESS
 	public void playVideo()
 	{
-		myUIInfo.GetComponent<MethodForm> ().toggleShownVideoInfo (true);
-		myUIInfo.GetComponent<MethodForm> ().playVideo (selectIdx);
+		//myUIInfo.GetComponent<MethodForm> ().toggleShownVideoInfo (true);
+		//myUIInfo.GetComponent<MethodForm> ().playVideo (selectIdx);
 		isPlayingVideo = true;
 	}
 
 	public void hitTest()
 	{
+        /*
 		Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
 		RaycastHit hitObj;
 
@@ -209,86 +178,87 @@ public class MethodLearnState : StateModuleTemplate {
 				}
 			}			
 		}
+        */
 	}
 
-	public void videoOptionTest()
-	{
-		isPlayingVideo = myUIInfo.GetComponent<MethodForm> ().isPlayMode;
-		if(isPlayingVideo == true)
-		{
-			if(isKeyDown(selectButton))
-			{
-				myUIInfo.GetComponent<MethodForm>().stopVideo();
-			}
-			else if(isKeyDown(skipButton))
-			{
-				
-				myUIInfo.GetComponent<MethodForm> ().skipVideo ();
+    public void goWrong()
+    {
+        GameObject.Find("FloatingUI_Timed").GetComponent<TimedBillText>().ShowText("틀렸습니다. 처음부터 다시 하세요.");
+        currentState = 0;
+        enableAllParts();
+        playWrongSound();
+    }
 
+    void playCorrectSound()
+    {
+        Debug.Log("Correct!");
+        GameObject.Find("CorrectWrongSound").GetComponent<CorrectWrongSound>().PlayCorrectSound();
+    }
 
-
-
-			}
-		}
-
-	}
+    void playWrongSound()
+    {
+        Debug.Log("Wrong!");
+        GameObject.Find("CorrectWrongSound").GetComponent<CorrectWrongSound>().PlayWrongSound();
+    }
 
 	public void selectTest()
-	{
-		if(isKeyDown(selectButton) && isPlayingVideo == false)
-		{
-			//정답일시, video 재생
-			if (selectIdx == trueAns [currIdxOrder]) {
-				currIdxOrder++;
-
-				objParts [selectIdx].GetComponent<MeshRenderer> ().enabled = false;
-
-				playVideo ();
-
-				backgroundUI.GetComponent<BackgroundForm> ().changeButtonInfo ("맞았습니다");
-				backgroundUI.GetComponent<BackgroundForm> ().toggleShownObject (BackgroundForm.BGPart.BG_BUTTONINFO, true);
-
-
-			} else {//오답일시 오답 표시하기 background에 ??
-				backgroundUI.GetComponent<BackgroundForm>().changeButtonInfo("틀렸습니다");
-				backgroundUI.GetComponent<BackgroundForm> ().toggleShownObject (BackgroundForm.BGPart.BG_BUTTONINFO, true);
-			}
+    {
+        if (currentState >= 3)
+        {
+            completed = true;
+        }
+        //if(isKeyDown(selectButton) && isPlayingVideo == false)
+        if (isHoloGestureTapped())
+        {
+            // WARNING : hard coding
+            if (currentState == 0) {
+                if (GameObject.Find("MP_ReleasePin").GetComponent<GazeMagnifier>().isGazed)
+                {
+                    currentState++;
+                    GameObject.Find("MP_ReleasePin").GetComponent<GazeMagnifier>().isEnabled = false;
+                    playCorrectSound();
+                    InvalidateHoloGesture();
+                }
+                else
+                {
+                    goWrong();
+                }
+            }
+            else if(currentState == 1)
+            {
+                if (GameObject.Find("MP_Hose").GetComponent<GazeMagnifier>().isGazed)
+                {
+                    currentState++;
+                    GameObject.Find("MP_Hose").GetComponent<GazeMagnifier>().isEnabled = false;
+                    playCorrectSound();
+                    InvalidateHoloGesture();
+                }
+                else
+                {
+                    goWrong();
+                }
+            }
+            else if(currentState == 2)
+            {
+                if (GameObject.Find("MP_Handle").GetComponent<GazeMagnifier>().isGazed)
+                {
+                    currentState++;
+                    GameObject.Find("MP_Handle").GetComponent<GazeMagnifier>().isEnabled = false;
+                    playCorrectSound();
+                    InvalidateHoloGesture();
+                }
+                else
+                {
+                    goWrong();
+                }
+            }
 		}
 	}
 
 
     public override void Process ()
 	{
-        //For Debugging, rotate the cloning fire extinguisher
-        if (Input.GetKeyDown("q") == true)
-        {
-            Quaternion q = cloneObj.transform.localRotation;
-            Vector3 objEuler = q.eulerAngles;
-
-
-            objEuler.y = objEuler.y + 10.0f;
-
-            cloneObj.transform.localRotation = Quaternion.Euler(objEuler);
-            
-
-        }
-        else if (Input.GetKeyDown("e") == true)
-        {
-            Quaternion q = cloneObj.transform.localRotation;
-            Vector3 objEuler = q.eulerAngles;
-
-            objEuler.y = objEuler.y - 10.0f;
-
-            cloneObj.transform.localRotation = Quaternion.Euler(objEuler);
-        }
-
-		Ray ray = myPlayerInfo.getCamera ().ScreenPointToRay (new Vector3 (Screen.width / 2, Screen.height / 2, 0));
-		Debug.DrawRay (ray.origin, ray.direction * 1000, Color.yellow);
-
-
-		videoOptionTest ();
-
-		hitTest ();
+        
 		selectTest ();
 
 
@@ -300,19 +270,22 @@ public class MethodLearnState : StateModuleTemplate {
 
 	public override bool Goal ()
 	{
-		if (currIdxOrder == getProperty<int> ("PartCount") && isPlayingVideo == false)
-			return true;
-		return false;
+        if (completed)
+        {
+            GameObject.Find("NarrativeSoundManager").GetComponent<NarrativeSoundManager>().MoveNextSound();
+            return true;
+        }
+        else
+            return false;
+        
+        
 	}
 
 	public override void Res ()
 	{
-		cloneObj.SetActive (false);
-		getObject<GameObject> ("Interaction_to_Object").SetActive (true);
-
-		lockFPSmoveScreen (false);
-
-
+		//cloneObj.SetActive (false);
+		//getObject<GameObject> ("Interaction_to_Object").SetActive (true);
+        
 		base.Res ();
 	}
 	

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VR;
 
 public class UIModuleTemplate : MonoBehaviour {
 
@@ -46,8 +47,8 @@ public class UIModuleTemplate : MonoBehaviour {
         if (System.IO.Directory.Exists("Assets/Resources/" + UImoduledirectory) == true)
         {
             GameObject newUI = GameObject.Instantiate(Resources.Load(UImoduledirectory + "/Prefab/" + formName, typeof(GameObject))) as GameObject;
-
-            newUI.transform.SetParent(canvas_ui.transform, false);
+            
+            //newUI.transform.SetParent(canvas_ui.transform, false);
 
             uiFormList.Add(formName, newUI);
         }
